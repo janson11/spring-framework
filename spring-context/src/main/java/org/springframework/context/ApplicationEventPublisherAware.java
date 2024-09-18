@@ -22,6 +22,7 @@ import org.springframework.beans.factory.Aware;
  * Interface to be implemented by any object that wishes to be notified
  * of the ApplicationEventPublisher (typically the ApplicationContext)
  * that it runs in.
+ * 任何对象都可以实现此接口，以便在运行时接收到ApplicationEventPublisher的通知（通常是ApplicationContext）。
  *
  * @author Juergen Hoeller
  * @author Chris Beams
@@ -32,10 +33,13 @@ public interface ApplicationEventPublisherAware extends Aware {
 
 	/**
 	 * Set the ApplicationEventPublisher that this object runs in.
+	 * 设置此对象运行的ApplicationEventPublisher。
 	 * <p>Invoked after population of normal bean properties but before an init
 	 * callback like InitializingBean's afterPropertiesSet or a custom init-method.
+	 * 在正常bean属性填充之后但在初始化回调（如InitializingBean的afterPropertiesSet或自定义init-method）之前调用。
 	 * Invoked before ApplicationContextAware's setApplicationContext.
-	 * @param applicationEventPublisher event publisher to be used by this object
+	 * ApplicationContextAware的setApplicationContext之前调用。
+	 * @param applicationEventPublisher event publisher to be used by this object 事件发布者，用于此对象
 	 */
 	void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher);
 
