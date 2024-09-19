@@ -22,6 +22,7 @@ import org.springframework.beans.factory.Aware;
 /**
  * Interface to be implemented by any object that wishes to be notified
  * of the {@link ApplicationContext} that it runs in.
+ * 被通知的对象可以实现ApplicationContextAware接口，以便在运行时接收ApplicationContext。
  *
  * <p>Implementing this interface makes sense for example when an object
  * requires access to a set of collaborating beans. Note that configuration
@@ -60,7 +61,9 @@ public interface ApplicationContextAware extends Aware {
 
 	/**
 	 * Set the ApplicationContext that this object runs in.
+	 * 设置ApplicationContext，该对象将在其中运行。
 	 * Normally this call will be used to initialize the object.
+	 * 通常，此调用将用于初始化对象。
 	 * <p>Invoked after population of normal bean properties but before an init callback such
 	 * as {@link org.springframework.beans.factory.InitializingBean#afterPropertiesSet()}
 	 * or a custom init-method. Invoked after {@link ResourceLoaderAware#setResourceLoader},

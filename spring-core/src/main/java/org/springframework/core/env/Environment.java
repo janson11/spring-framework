@@ -18,9 +18,12 @@ package org.springframework.core.env;
 
 /**
  * Interface representing the environment in which the current application is running.
+ * 接口表示当前应用程序运行的环境。
  * Models two key aspects of the application environment: <em>profiles</em> and
  * <em>properties</em>. Methods related to property access are exposed via the
  * {@link PropertyResolver} superinterface.
+ * 模型应用程序环境的两个关键方面：<em>配置文件</em>和<em>属性</em>。
+ * 属性访问相关的方法通过{@link PropertyResolver}超接口公开。
  *
  * <p>A <em>profile</em> is a named, logical group of bean definitions to be registered
  * with the container only if the given profile is <em>active</em>. Beans may be assigned

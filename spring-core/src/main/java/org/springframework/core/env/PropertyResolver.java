@@ -20,6 +20,7 @@ import org.springframework.lang.Nullable;
 
 /**
  * Interface for resolving properties against any underlying source.
+ * 接口用于解析任何底层源的属性。
  *
  * @author Chris Beams
  * @author Juergen Hoeller

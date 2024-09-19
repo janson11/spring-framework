@@ -22,6 +22,8 @@ package org.springframework.context.annotation;
  * based on the configuration phase. For example, a condition that checks if a bean
  * has already been registered might choose to only be evaluated during the
  * {@link ConfigurationPhase#REGISTER_BEAN REGISTER_BEAN} {@link ConfigurationPhase}.
+ * 一个 {@link Condition}，当与 {@code @Configuration} 一起使用时，提供了更精细的控制。允许某些条件根据配置阶段适应。
+ * 例如，一个检查是否已经注册了一个bean的条件可能只在 {@link ConfigurationPhase#REGISTER_BEAN REGISTER_BEAN} {@link ConfigurationPhase} 阶段进行评估。
  *
  * @author Phillip Webb
  * @since 4.0
@@ -37,6 +39,7 @@ public interface ConfigurationCondition extends Condition {
 
 	/**
 	 * The various configuration phases where the condition could be evaluated.
+	 * 这个条件可以评估的配置阶段。
 	 */
 	enum ConfigurationPhase {
 
