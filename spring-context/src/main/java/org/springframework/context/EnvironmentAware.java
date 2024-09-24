@@ -22,6 +22,7 @@ import org.springframework.core.env.Environment;
 /**
  * Interface to be implemented by any bean that wishes to be notified
  * of the {@link Environment} that it runs in.
+ * 接口，任何bean都可以实现该接口，以便在运行时接收到Environment。
  *
  * @author Chris Beams
  * @since 3.1
@@ -30,6 +31,7 @@ import org.springframework.core.env.Environment;
 public interface EnvironmentAware extends Aware {
 
 	/**
+	 * 设置Environment。
 	 * Set the {@code Environment} that this component runs in.
 	 */
 	void setEnvironment(Environment environment);

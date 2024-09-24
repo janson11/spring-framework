@@ -24,6 +24,7 @@ import org.springframework.beans.factory.Aware;
  * Interface to be implemented by any object that wishes to be notified of the
  * {@link ServletContext} (typically determined by the {@link WebApplicationContext})
  * that it runs in.
+ * 接口，任何希望在运行时接收{@link ServletContext}的对象都应该实现此接口。
  *
  * @author Juergen Hoeller
  * @author Chris Beams

@@ -28,6 +28,9 @@ import org.springframework.util.ClassUtils;
  * {@link RequestAttributes} object. The request will be inherited
  * by any child threads spawned by the current thread if the
  * {@code inheritable} flag is set to {@code true}.
+ * 持有当前线程的RequestAttributes对象，并将其设置为可继承的。
+ * 如果设置了inheritable标志，则子线程将继承父线程的RequestAttributes。
+ *
  *
  * <p>Use {@link RequestContextListener} or
  * {@link org.springframework.web.filter.RequestContextFilter} to expose
@@ -74,6 +77,7 @@ public abstract class RequestContextHolder  {
 
 	/**
 	 * Bind the given RequestAttributes to the current thread.
+	 * 绑定给定的RequestAttributes到当前线程，
 	 * @param attributes the RequestAttributes to expose,
 	 * or {@code null} to reset the thread-bound context
 	 * @param inheritable whether to expose the RequestAttributes as inheritable

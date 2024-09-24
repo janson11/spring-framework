@@ -21,6 +21,7 @@ package org.springframework.context;
  * The typical use case for this is to control asynchronous processing.
  * <b>NOTE: This interface does not imply specific auto-startup semantics.
  * Consider implementing {@link SmartLifecycle} for that purpose.</b>
+ * 一个通用的接口，用于启动/停止生命周期控制。典型用例是控制异步处理。
  *
  * <p>Can be implemented by both components (typically a Spring bean defined in a
  * Spring context) and containers  (typically a Spring {@link ApplicationContext}

@@ -34,6 +34,8 @@ import org.springframework.web.util.WebUtils;
  * Filter base class that aims to guarantee a single execution per request
  * dispatch, on any servlet container. It provides a {@link #doFilterInternal}
  * method with HttpServletRequest and HttpServletResponse arguments.
+ * 过滤器基类，旨在为每个请求保证一次执行，无论在任何Servlet容器上。
+ * 它提供了具有HttpServletRequest和HttpServletResponse参数的doFilterInternal方法。
  *
  * <p>As of Servlet 3.0, a filter may be invoked as part of a
  * {@link javax.servlet.DispatcherType#REQUEST REQUEST} or
@@ -80,6 +82,7 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 	 * This {@code doFilter} implementation stores a request attribute for
 	 * "already filtered", proceeding without filtering again if the
 	 * attribute is already there.
+	 * 这个doFilter实现为“已过滤”的请求属性存储了一个请求属性，如果属性已经存在，则不再过滤。
 	 * @see #getAlreadyFilteredAttributeName
 	 * @see #shouldNotFilter
 	 * @see #doFilterInternal
@@ -224,6 +227,7 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 	/**
 	 * Same contract as for {@code doFilter}, but guaranteed to be
 	 * just invoked once per request within a single request thread.
+	 * 同一约定，但保证在单个请求线程中仅调用一次。
 	 * See {@link #shouldNotFilterAsyncDispatch()} for details.
 	 * <p>Provides HttpServletRequest and HttpServletResponse arguments instead of the
 	 * default ServletRequest and ServletResponse ones.

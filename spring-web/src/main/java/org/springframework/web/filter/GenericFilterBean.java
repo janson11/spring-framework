@@ -56,6 +56,7 @@ import org.springframework.web.util.NestedServletException;
  * Simple base implementation of {@link javax.servlet.Filter} which treats
  * its config parameters ({@code init-param} entries within the
  * {@code filter} tag in {@code web.xml}) as bean properties.
+ * 简单实现 {@link javax.servlet.Filter} 接口，将其配置参数（{@code web.xml} 文件中 {@code filter} 标签下的 {@code init-param} 项）作为 bean 属性。
  *
  * <p>A handy superclass for any type of filter. Type conversion of config
  * parameters is automatic, with the corresponding setter method getting
@@ -102,6 +103,7 @@ public abstract class GenericFilterBean implements Filter, BeanNameAware, Enviro
 
 	/**
 	 * Stores the bean name as defined in the Spring bean factory.
+	 * 存储 Spring bean factory 中定义的 bean 名称。
 	 * <p>Only relevant in case of initialization as bean, to have a name as
 	 * fallback to the filter name usually provided by a FilterConfig instance.
 	 * @see org.springframework.beans.factory.BeanNameAware
@@ -114,6 +116,7 @@ public abstract class GenericFilterBean implements Filter, BeanNameAware, Enviro
 
 	/**
 	 * Set the {@code Environment} that this filter runs in.
+	 * 过滤器运行的 {@code Environment} 对象。
 	 * <p>Any environment set here overrides the {@link StandardServletEnvironment}
 	 * provided by default.
 	 * <p>This {@code Environment} object is used only for resolving placeholders in
@@ -164,6 +167,7 @@ public abstract class GenericFilterBean implements Filter, BeanNameAware, Enviro
 	/**
 	 * Calls the {@code initFilterBean()} method that might
 	 * contain custom initialization of a subclass.
+	 * 调用子类 {@code initFilterBean()} 方法，该方法可能包含子类自定义的初始化代码。
 	 * <p>Only relevant in case of initialization as bean, where the
 	 * standard {@code init(FilterConfig)} method won't be called.
 	 * @see #initFilterBean()
@@ -200,6 +204,7 @@ public abstract class GenericFilterBean implements Filter, BeanNameAware, Enviro
 
 	/**
 	 * Standard way of initializing this filter.
+	 * 标准的过滤器初始化方法。
 	 * Map config parameters onto bean properties of this filter, and
 	 * invoke subclass initialization.
 	 * @param filterConfig the configuration for this filter

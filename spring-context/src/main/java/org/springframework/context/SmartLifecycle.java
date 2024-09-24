@@ -20,6 +20,7 @@ package org.springframework.context;
  * An extension of the {@link Lifecycle} interface for those objects that require
  * to be started upon {@code ApplicationContext} refresh and/or shutdown in a
  * particular order.
+ * 一个扩展的{@link Lifecycle}接口，用于需要在{@code ApplicationContext}刷新和/或关闭时启动特定顺序的对象。
  *
  * <p>The {@link #isAutoStartup()} return value indicates whether this object should
  * be started at the time of a context refresh. The callback-accepting
@@ -83,6 +84,7 @@ public interface SmartLifecycle extends Lifecycle, Phased {
 	 * Returns {@code true} if this {@code Lifecycle} component should get
 	 * started automatically by the container at the time that the containing
 	 * {@link ApplicationContext} gets refreshed.
+	 * 返回{@code true}，如果此{@code Lifecycle}组件应在包含的{@link ApplicationContext}刷新时自动启动容器。
 	 * <p>A value of {@code false} indicates that the component is intended to
 	 * be started through an explicit {@link #start()} call instead, analogous
 	 * to a plain {@link Lifecycle} implementation.
@@ -120,6 +122,7 @@ public interface SmartLifecycle extends Lifecycle, Phased {
 
 	/**
 	 * Return the phase that this lifecycle object is supposed to run in.
+	 * 返回此生命周期对象的运行阶段。
 	 * <p>The default implementation returns {@link #DEFAULT_PHASE} in order to
 	 * let {@code stop()} callbacks execute after regular {@code Lifecycle}
 	 * implementations.

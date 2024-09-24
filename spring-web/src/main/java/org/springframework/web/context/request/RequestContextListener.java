@@ -26,6 +26,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
  * Servlet listener that exposes the request to the current thread,
  * through both {@link org.springframework.context.i18n.LocaleContextHolder} and
  * {@link RequestContextHolder}. To be registered as listener in {@code web.xml}.
+ * 控制器监听器，将请求暴露给当前线程，通过{@link org.springframework.context.i18n.LocaleContextHolder}和{@link RequestContextHolder}。
+ * 注册在{@code web.xml}中。
  *
  * <p>Alternatively, Spring's {@link org.springframework.web.filter.RequestContextFilter}
  * and Spring's {@link org.springframework.web.servlet.DispatcherServlet} also expose

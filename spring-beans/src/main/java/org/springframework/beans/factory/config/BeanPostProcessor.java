@@ -22,6 +22,10 @@ import org.springframework.lang.Nullable;
 /**
  * Factory hook that allows for custom modification of new bean instances &mdash;
  * for example, checking for marker interfaces or wrapping beans with proxies.
+ * 工作原理：	BeanPostProcessor接口的作用是对Bean实例进行后处理，比如检查标记接口或包装Bean实例。
+ * BeanPostProcessor接口的两个方法：postProcessBeforeInitialization和postProcessAfterInitialization。
+ * postProcessBeforeInitialization方法在Bean实例初始化之前调用，可以对Bean实例进行修改，比如检查标记接口。
+ * 例如 检查标记接口或用代理包装bean
  *
  * <p>Typically, post-processors that populate beans via marker interfaces
  * or the like will implement {@link #postProcessBeforeInitialization},
@@ -62,6 +66,9 @@ public interface BeanPostProcessor {
 	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
 	 * or a custom init-method). The bean will already be populated with property values.
 	 * The returned bean instance may be a wrapper around the original.
+	 * 应用BeanPostProcessor到给定的新Bean实例上，在Bean初始化回调之前（比如InitializingBean的afterPropertiesSet方法或自定义的init-method）。
+	 * Bean已经被填充了属性值。返回的Bean实例可能是原始Bean的包装。
+	 * <p>In case of a FactoryBean, this callback will be invoked for both the FactoryBean
 	 * <p>The default implementation returns the given {@code bean} as-is.
 	 * @param bean the new bean instance
 	 * @param beanName the name of the bean
@@ -80,6 +87,9 @@ public interface BeanPostProcessor {
 	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
 	 * or a custom init-method). The bean will already be populated with property values.
 	 * The returned bean instance may be a wrapper around the original.
+	 * 应用BeanPostProcessor到给定的新Bean实例上，在Bean初始化回调之后（比如InitializingBean的afterPropertiesSet方法或自定义的init-method）。
+	 * Bean已经被填充了属性值。返回的Bean实例可能是原始Bean的包装。
+	 *
 	 * <p>In case of a FactoryBean, this callback will be invoked for both the FactoryBean
 	 * instance and the objects created by the FactoryBean (as of Spring 2.0). The
 	 * post-processor can decide whether to apply to either the FactoryBean or created

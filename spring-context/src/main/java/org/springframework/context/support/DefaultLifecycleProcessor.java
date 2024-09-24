@@ -45,6 +45,7 @@ import org.springframework.util.Assert;
 
 /**
  * Default implementation of the {@link LifecycleProcessor} strategy.
+ * 默认的生命周期处理器实现。
  *
  * @author Mark Fisher
  * @author Juergen Hoeller

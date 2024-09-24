@@ -28,6 +28,9 @@ import org.springframework.lang.Nullable;
  * as no-ops, which will not change normal processing of each bean instantiated
  * by the container. Subclasses may override merely those methods that they are
  * actually interested in.
+ * 适配器，实现了所有 {@link SmartInstantiationAwareBeanPostProcessor} 方法，但实际上什么都不做，因此不会影响容器实例化每个bean的正常处理。
+ * 子类可以只重写感兴趣的方法。
+ *
  *
  * <p>Note that this base class is only recommendable if you actually require
  * {@link InstantiationAwareBeanPostProcessor} functionality. If all you need
