@@ -74,11 +74,15 @@ import org.springframework.util.StringUtils;
  * config methods. Such members to be injected are detected through annotations:
  * by default, Spring's {@link Autowired @Autowired} and {@link Value @Value}
  * annotations.
+ * BeanPostProcessor的实现，用于自动装配带注解的字段、setter方法和任意配置方法。
+ * 通过注解检测到要注入的成员：默认情况下，Spring的{@link Autowired @Autowired}和{@link Value @Value}注解。
  *
  * <p>Also supports JSR-330's {@link javax.inject.Inject @Inject} annotation,
  * if available, as a direct alternative to Spring's own {@code @Autowired}.
+ * 也支持JSR-330的{@link javax.inject.Inject @Inject}注解，如果可用，作为Spring自己的{@code @Autowired}的直接替代品。
  *
  * <h3>Autowired Constructors</h3>
+ * 自动装配构造函数。
  * <p>Only one constructor of any given bean class may declare this annotation with
  * the 'required' attribute set to {@code true}, indicating <i>the</i> constructor
  * to autowire when used as a Spring bean. Furthermore, if the 'required' attribute
@@ -92,16 +96,22 @@ import org.springframework.util.StringUtils;
  * annotated. An annotated constructor does not have to be public.
  *
  * <h3>Autowired Fields</h3>
+ * 自动装配字段。
  * <p>Fields are injected right after construction of a bean, before any
  * config methods are invoked. Such a config field does not have to be public.
+ * 字段被注入到Bean的构造函数之后，但在调用任何配置方法之前。配置字段不必是公共的。
  *
  * <h3>Autowired Methods</h3>
+ * 自动装配方法
  * <p>Config methods may have an arbitrary name and any number of arguments; each of
  * those arguments will be autowired with a matching bean in the Spring container.
  * Bean property setter methods are effectively just a special case of such a
  * general config method. Config methods do not have to be public.
+ * 配置方法可以有任意名称和任意数量的参数；每个参数都将与Spring容器中的匹配Bean进行自动装配。
+ * Bean属性setter方法实际上只是一种特殊的通用配置方法的特殊情况。配置方法不必是公共的。
  *
  * <h3>Annotation Config vs. XML Config</h3>
+ * 注解配置与XML配置
  * <p>A default {@code AutowiredAnnotationBeanPostProcessor} will be registered
  * by the "context:annotation-config" and "context:component-scan" XML tags.
  * Remove or turn off the default annotation configuration there if you intend
@@ -112,11 +122,14 @@ import org.springframework.util.StringUtils;
  * both approaches.
  *
  * <h3>{@literal @}Lookup Methods</h3>
+ * 方法查找
  * <p>In addition to regular injection points as discussed above, this post-processor
  * also handles Spring's {@link Lookup @Lookup} annotation which identifies lookup
  * methods to be replaced by the container at runtime. This is essentially a type-safe
  * version of {@code getBean(Class, args)} and {@code getBean(String, args)}.
  * See {@link Lookup @Lookup's javadoc} for details.
+ * 为了替换容器的运行时查找方法，此后处理器还处理Spring的{@link Lookup @Lookup}注解，该注解标识了要替换的查找方法。
+ * 这基本上是{@code getBean(Class, args)}和{@code getBean(String, args)}的类型安全版本。
  *
  * @author Juergen Hoeller
  * @author Mark Fisher

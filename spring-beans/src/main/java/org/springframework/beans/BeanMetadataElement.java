@@ -21,6 +21,7 @@ import org.springframework.lang.Nullable;
 /**
  * Interface to be implemented by bean metadata elements
  * that carry a configuration source object.
+ * 接口，由配置源对象承载的元数据元素实现。
  *
  * @author Juergen Hoeller
  * @since 2.0

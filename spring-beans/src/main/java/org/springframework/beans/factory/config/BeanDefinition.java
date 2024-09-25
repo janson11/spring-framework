@@ -26,10 +26,12 @@ import org.springframework.lang.Nullable;
  * A BeanDefinition describes a bean instance, which has property values,
  * constructor argument values, and further information supplied by
  * concrete implementations.
+ * 一个BeanDefinition描述了一个bean实例，它有属性值、构造参数值以及由具体实现提供的其他信息。
  *
  * <p>This is just a minimal interface: The main intention is to allow a
  * {@link BeanFactoryPostProcessor} to introspect and modify property values
  * and other bean metadata.
+ * 这仅仅是一个最小的接口：主要的意图是允许一个{@link BeanFactoryPostProcessor}对属性值和其他bean元数据进行检查和修改。
  *
  * @author Juergen Hoeller
  * @author Rob Harrop
@@ -60,6 +62,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	/**
 	 * Role hint indicating that a {@code BeanDefinition} is a major part
 	 * of the application. Typically corresponds to a user-defined bean.
+	 * 角色提示，表明一个{@code BeanDefinition}是应用程序的主要部分。通常对应于用户定义的bean。
 	 */
 	int ROLE_APPLICATION = 0;
 
@@ -71,6 +74,9 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * of when looking more closely at a particular
 	 * {@link org.springframework.beans.factory.parsing.ComponentDefinition},
 	 * but not when looking at the overall configuration of an application.
+	 * 角色提示，表明一个{@code BeanDefinition}是某些较大配置的支持部分，通常是一个外层{@link org.springframework.beans.factory.parsing.ComponentDefinition}。
+	 * {@code SUPPORT}beans被认为足够重要，以便在查看特定的{@link org.springframework.beans.factory.parsing.ComponentDefinition}时注意到它们，但在查看应用程序的整体配置时不必如此。
+	 *
 	 */
 	int ROLE_SUPPORT = 1;
 
@@ -79,6 +85,8 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * entirely background role and has no relevance to the end-user. This hint is
 	 * used when registering beans that are completely part of the internal workings
 	 * of a {@link org.springframework.beans.factory.parsing.ComponentDefinition}.
+	 * 角色提示，表明一个{@code BeanDefinition}提供了一个完全的后台角色，对最终用户没有任何意义。
+	 * 当注册的beans完全是{@link org.springframework.beans.factory.parsing.ComponentDefinition}的内部工作的一部分时，使用此提示。
 	 */
 	int ROLE_INFRASTRUCTURE = 2;
 
@@ -98,6 +106,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
 	 * Specify the bean class name of this bean definition.
+	 * 指定这个bean定义的bean类名。
 	 * <p>The class name can be modified during bean factory post-processing,
 	 * typically replacing the original class name with a parsed variant of it.
 	 * @see #setParentName
@@ -108,6 +117,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
 	 * Return the current bean class name of this bean definition.
+	 * 返回这个bean定义的当前bean类名。
 	 * <p>Note that this does not have to be the actual class name used at runtime, in
 	 * case of a child definition overriding/inheriting the class name from its parent.
 	 * Also, this may just be the class that a factory method is called on, or it may
@@ -123,6 +133,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
 	 * Override the target scope of this bean, specifying a new scope name.
+	 * 覆盖这个bean的目标作用域，指定一个新的作用域名称。
 	 * @see #SCOPE_SINGLETON
 	 * @see #SCOPE_PROTOTYPE
 	 */
@@ -137,6 +148,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
 	 * Set whether this bean should be lazily initialized.
+	 * 设置这个bean是否应该延迟初始化。
 	 * <p>If {@code false}, the bean will get instantiated on startup by bean
 	 * factories that perform eager initialization of singletons.
 	 */
@@ -151,6 +163,8 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	/**
 	 * Set the names of the beans that this bean depends on being initialized.
 	 * The bean factory will guarantee that these beans get initialized first.
+	 * 设置这个bean依赖的bean的名称。bean工厂将保证这些bean首先被初始化。
+	 *
 	 */
 	void setDependsOn(@Nullable String... dependsOn);
 
@@ -176,6 +190,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
 	 * Set whether this bean is a primary autowire candidate.
+	 * 设置这个bean是否是主要的自动装配候选者。
 	 * <p>If this value is {@code true} for exactly one bean among multiple
 	 * matching candidates, it will serve as a tie-breaker.
 	 */
