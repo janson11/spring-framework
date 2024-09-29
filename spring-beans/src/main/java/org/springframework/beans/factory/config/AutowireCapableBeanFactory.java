@@ -65,6 +65,7 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 	/**
 	 * Constant that indicates no externally defined autowiring. Note that
 	 * BeanFactoryAware etc and annotation-driven injection will still be applied.
+	 * 常量 0，指示没有外部定义的自动装配。请注意，BeanFactoryAware等及基于注解的注入仍然会被应用。
 	 * @see #createBean
 	 * @see #autowire
 	 * @see #autowireBeanProperties
@@ -74,6 +75,7 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 	/**
 	 * Constant that indicates autowiring bean properties by name
 	 * (applying to all bean property setters).
+	 * 常量 1 ，指示通过名称自动装配bean属性（应用于所有bean属性setter）。
 	 * @see #createBean
 	 * @see #autowire
 	 * @see #autowireBeanProperties
@@ -83,6 +85,7 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 	/**
 	 * Constant that indicates autowiring bean properties by type
 	 * (applying to all bean property setters).
+	 * 常量 2 ，指示通过类型自动装配bean属性（应用于所有bean属性setter）。
 	 * @see #createBean
 	 * @see #autowire
 	 * @see #autowireBeanProperties
@@ -92,6 +95,7 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 	/**
 	 * Constant that indicates autowiring the greediest constructor that
 	 * can be satisfied (involves resolving the appropriate constructor).
+	 * 常量 3 ，指示自动装配最聪明的构造函数（涉及解析适当的构造函数）。
 	 * @see #createBean
 	 * @see #autowire
 	 */
@@ -127,7 +131,9 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 
 	/**
 	 * Fully create a new bean instance of the given class.
+	 * 全部创建给定类的新bean实例。
 	 * <p>Performs full initialization of the bean, including all applicable
+	 *  表现 ：完全初始化bean，包括所有适用的BeanPostProcessor。
 	 * {@link BeanPostProcessor BeanPostProcessors}.
 	 * <p>Note: This is intended for creating a fresh instance, populating annotated
 	 * fields and methods as well as applying all standard bean initialization callbacks.
@@ -142,6 +148,7 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 	/**
 	 * Populate the given bean instance through applying after-instantiation callbacks
 	 * and bean property post-processing (e.g. for annotation-driven injection).
+	 * 填充给定的bean实例，通过应用后实例化回调和bean属性后处理（例如，对于基于注解的注入）。
 	 * <p>Note: This is essentially intended for (re-)populating annotated fields and
 	 * methods, either for new instances or for deserialized instances. It does
 	 * <i>not</i> imply traditional by-name or by-type autowiring of properties;
@@ -178,6 +185,8 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 	/**
 	 * Fully create a new bean instance of the given class with the specified
 	 * autowire strategy. All constants defined in this interface are supported here.
+	 * 全部创建给定类的新bean实例，并使用指定的自动装配策略。
+	 * 所有常量在此接口中都受支持。
 	 * <p>Performs full initialization of the bean, including all applicable
 	 * {@link BeanPostProcessor BeanPostProcessors}. This is effectively a superset
 	 * of what {@link #autowire} provides, adding {@link #initializeBean} behavior.
@@ -272,6 +281,9 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 	 * such as {@code setBeanName} and {@code setBeanFactory},
 	 * also applying all bean post processors (including ones which
 	 * might wrap the given raw bean).
+	 * 初始化给定的原始bean，应用工厂回调，例如setBeanName和setBeanFactory，
+	 * 还应用所有bean后处理器（包括可能包装给定的原始bean的BeanPostProcessor）。
+	 * <p>This is effectively a superset of what {@link #autowire} provides,
 	 * <p>Note that no bean definition of the given name has to exist
 	 * in the bean factory. The passed-in bean name will simply be used
 	 * for callbacks but not checked against the registered bean definitions.

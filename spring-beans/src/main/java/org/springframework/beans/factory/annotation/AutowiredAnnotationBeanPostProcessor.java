@@ -146,29 +146,46 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	/**
+	 * 自动装配注解类型集合
+	 */
 	private final Set<Class<? extends Annotation>> autowiredAnnotationTypes = new LinkedHashSet<>(4);
 
 	private String requiredParameterName = "required";
 
 	private boolean requiredParameterValue = true;
 
+	/**
+	 * 默认顺序是最低优先级-2
+	 */
 	private int order = Ordered.LOWEST_PRECEDENCE - 2;
 
 	@Nullable
 	private ConfigurableListableBeanFactory beanFactory;
 
+	/**
+	 * 缓存已解析的注解元数据，以避免重复解析
+	 */
 	private final Set<String> lookupMethodsChecked = Collections.newSetFromMap(new ConcurrentHashMap<>(256));
 
+	/**
+	 * 缓存候选构造函数，以避免重复解析
+	 */
 	private final Map<Class<?>, Constructor<?>[]> candidateConstructorsCache = new ConcurrentHashMap<>(256);
 
+	/**
+	 * 缓存字段注入元数据，以避免重复解析
+	 */
 	private final Map<String, InjectionMetadata> injectionMetadataCache = new ConcurrentHashMap<>(256);
 
 
 	/**
 	 * Create a new {@code AutowiredAnnotationBeanPostProcessor} for Spring's
 	 * standard {@link Autowired @Autowired} and {@link Value @Value} annotations.
+	 * 创建新的{@code AutowiredAnnotationBeanPostProcessor}，用于Spring的标准{@link Autowired @Autowired}和{@link Value @Value}注解。
 	 * <p>Also supports JSR-330's {@link javax.inject.Inject @Inject} annotation,
 	 * if available.
+	 * 如果可用,也支持JSR-330的{@link javax.inject.Inject @Inject}注解。
 	 */
 	@SuppressWarnings("unchecked")
 	public AutowiredAnnotationBeanPostProcessor() {

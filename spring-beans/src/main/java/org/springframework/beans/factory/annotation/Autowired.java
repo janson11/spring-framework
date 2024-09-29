@@ -26,8 +26,11 @@ import java.lang.annotation.Target;
  * Marks a constructor, field, setter method, or config method as to be autowired by
  * Spring's dependency injection facilities. This is an alternative to the JSR-330
  * {@link javax.inject.Inject} annotation, adding required-vs-optional semantics.
+ * 标记构造函数、字段、setter方法或配置方法，以便由Spring的依赖注入机制进行自动装配。
+ * 这是一个替代JSR-330 {@link javax.inject.Inject}注解的注解，添加了required-vs-optional语义。
  *
  * <h3>Autowired Constructors</h3>
+ * 自动装配构造函数。
  * <p>Only one constructor of any given bean class may declare this annotation with the
  * {@link #required} attribute set to {@code true}, indicating <i>the</i> constructor
  * to autowire when used as a Spring bean. Furthermore, if the {@code required}
@@ -43,14 +46,19 @@ import java.lang.annotation.Target;
  * even if not annotated. An annotated constructor does not have to be public.
  *
  * <h3>Autowired Fields</h3>
+ * 自动装配字段。
  * <p>Fields are injected right after construction of a bean, before any config methods
  * are invoked. Such a config field does not have to be public.
+ * 字段在构造bean之后，但在调用任何配置方法之前进行注入。
+ * 这样的配置字段不必是公共的。
  *
  * <h3>Autowired Methods</h3>
+ * 自动装配方法。
  * <p>Config methods may have an arbitrary name and any number of arguments; each of
  * those arguments will be autowired with a matching bean in the Spring container.
  * Bean property setter methods are effectively just a special case of such a general
  * config method. Such config methods do not have to be public.
+ * 配置方法可以有任意名称和任意数量的参数；每个参数都将与Spring容器中的匹配bean进行自动装配。
  *
  * <h3>Autowired Parameters</h3>
  * <p>Although {@code @Autowired} can technically be declared on individual method
