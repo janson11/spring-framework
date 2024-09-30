@@ -31,14 +31,20 @@ import org.springframework.util.Assert;
  * in particular {@link Configuration @Configuration}-annotated classes, but also plain
  * {@link org.springframework.stereotype.Component @Component} types and JSR-330 compliant
  * classes using {@code javax.inject} annotations.
+ * 独占式应用上下文，接受<em>组件类</em>作为输入——特别是带有{@link Configuration @Configuration}注解的配置类，
+ * 但也包括普通的{@link org.springframework.stereotype.Component @Component}类型和使用JSR-330注解的类。
  *
  * <p>Allows for registering classes one by one using {@link #register(Class...)}
  * as well as for classpath scanning using {@link #scan(String...)}.
+ *  允许使用{@link #register(Class...)}单个类注册，以及使用{@link #scan(String...)}进行类路径扫描。
  *
  * <p>In case of multiple {@code @Configuration} classes, {@link Bean @Bean} methods
  * defined in later classes will override those defined in earlier classes. This can
  * be leveraged to deliberately override certain bean definitions via an extra
  * {@code @Configuration} class.
+ * 多个配置类的情况下，后面的类中的{@link Bean @Bean}方法会覆盖前面的类中的定义情况
+ * 这可能被用来通过额外的{@code @Configuration}类来有意地覆盖某些bean定义。
+ *
  *
  * <p>See {@link Configuration @Configuration}'s javadoc for usage examples.
  *
@@ -60,6 +66,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 
 	/**
 	 * Create a new AnnotationConfigApplicationContext that needs to be populated
+	 * 创建新的AnnotationConfigApplicationContext，需要填充
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
 	public AnnotationConfigApplicationContext() {
@@ -69,6 +76,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 
 	/**
 	 * Create a new AnnotationConfigApplicationContext with the given DefaultListableBeanFactory.
+	 * 通过给定的DefaultListableBeanFactory实例创建一个新的AnnotationConfigApplicationContext。
 	 * @param beanFactory the DefaultListableBeanFactory instance to use for this context
 	 */
 	public AnnotationConfigApplicationContext(DefaultListableBeanFactory beanFactory) {
@@ -81,6 +89,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * Create a new AnnotationConfigApplicationContext, deriving bean definitions
 	 * from the given component classes and automatically refreshing the context.
 	 * @param componentClasses one or more component classes &mdash; for example,
+	 * 创建新的AnnotationConfigApplicationContext,从给定的组件类中派生bean定义，并自动刷新上下文。
+	 *
+	 *
 	 * {@link Configuration @Configuration} classes
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
@@ -151,6 +162,8 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * Register one or more component classes to be processed.
 	 * <p>Note that {@link #refresh()} must be called in order for the context
 	 * to fully process the new classes.
+	 * 实现注册一个或多个组件类，以便处理。
+	 * 注意，必须调用{@link #refresh()}才能完全处理新类。
 	 * @param componentClasses one or more component classes &mdash; for example,
 	 * {@link Configuration @Configuration} classes
 	 * @see #scan(String...)
