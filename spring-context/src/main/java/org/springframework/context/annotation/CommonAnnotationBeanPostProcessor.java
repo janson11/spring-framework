@@ -80,6 +80,9 @@ import org.springframework.util.StringValueResolver;
  * annotations in the {@code javax.annotation} package. These common Java
  * annotations are supported in many Java EE 5 technologies (e.g. JSF 1.2),
  * as well as in Java 6's JAX-WS.
+ * BeanPostProcessor实现，支持常见的Java注释，特别是javax.annotation包中的JSR-250注释。
+ * 这些常见的Java注释在许多Java EE 5技术中（例如JSF 1.2）都受支持，
+ * 以及Java 6的JAX-WS中。
  *
  * <p>This post-processor includes support for the {@link javax.annotation.PostConstruct}
  * and {@link javax.annotation.PreDestroy} annotations - as init annotation
@@ -191,10 +194,14 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 	/**
 	 * Create a new CommonAnnotationBeanPostProcessor,
 	 * with the init and destroy annotation types set to
+	 * 创建新的CommonAnnotationBeanPostProcessor，
+	 * 并将init和destroy注释类型设置为
+	 * {@link javax.annotation.PostConstruct}和{@link javax.annotation.PreDestroy}。
 	 * {@link javax.annotation.PostConstruct} and {@link javax.annotation.PreDestroy},
 	 * respectively.
 	 */
 	public CommonAnnotationBeanPostProcessor() {
+		// 设置优先级为最低-3，以便于在其他BeanPostProcessor之前运行
 		setOrder(Ordered.LOWEST_PRECEDENCE - 3);
 		setInitAnnotationType(PostConstruct.class);
 		setDestroyAnnotationType(PreDestroy.class);

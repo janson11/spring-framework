@@ -32,6 +32,8 @@ import org.springframework.util.ClassUtils;
  * A {@link org.springframework.beans.factory.config.BeanFactoryPostProcessor}
  * implementation that allows for convenient registration of custom autowire
  * qualifier types.
+ *  一个{@link org.springframework.beans.factory.config.BeanFactoryPostProcessor}实现，允许方便地注册自定义的自动装配限定类型。
+ *
  *
  * <pre class="code">
  * &lt;bean id="customAutowireConfigurer" class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer"&gt;
@@ -77,6 +79,9 @@ public class CustomAutowireConfigurer implements BeanFactoryPostProcessor, BeanC
 	 * when autowiring beans. Each element of the provided set may
 	 * be either a Class instance or a String representation of the
 	 * fully-qualified class name of the custom annotation.
+	 * 注册自定义限定符注解类型，以便在自动装配bean时考虑它们。
+	 * 提供的集合中的每个元素都可以是Class实例或String表示的自定义注解的完全限定类名。
+	 *
 	 * <p>Note that any annotation that is itself annotated with Spring's
 	 * {@link org.springframework.beans.factory.annotation.Qualifier}
 	 * does not require explicit registration.

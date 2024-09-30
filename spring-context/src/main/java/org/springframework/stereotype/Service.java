@@ -28,6 +28,9 @@ import org.springframework.core.annotation.AliasFor;
  * Indicates that an annotated class is a "Service", originally defined by Domain-Driven
  * Design (Evans, 2003) as "an operation offered as an interface that stands alone in the
  * model, with no encapsulated state."
+ * 表明是一个注解类是一"Service"，原先是由Domain-Driven Design (Evans, 2003)定义的，
+ * "作为模型中独立的接口提供的操作，没有封装状态。"。
+ *
  *
  * <p>May also indicate that a class is a "Business Service Facade" (in the Core J2EE
  * patterns sense), or something similar. This annotation is a general-purpose stereotype
@@ -51,6 +54,7 @@ public @interface Service {
 	 * The value may indicate a suggestion for a logical component name,
 	 * to be turned into a Spring bean in case of an autodetected component.
 	 * @return the suggested component name, if any (or empty String otherwise)
+	 * 表明建议的逻辑组件名称，如果是自动检测到的组件，则转换为Spring bean
 	 */
 	@AliasFor(annotation = Component.class)
 	String value() default "";

@@ -24,6 +24,9 @@ import org.springframework.util.Assert;
  * class name as the default bean name if an explicit bean name is not supplied via
  * a supported type-level annotation such as {@code @Component} (see
  * {@link AnnotationBeanNameGenerator} for details on supported annotations).
+ * 一个扩展 {@code AnnotationBeanNameGenerator} 的类，
+ * 如果没有通过支持的类型级注解（例如 {@code @Component}）提供显式的bean名称，则使用完全限定类名作为默认bean名称。
+ *
  *
  * <p>Favor this bean naming strategy over {@code AnnotationBeanNameGenerator} if
  * you run into naming conflicts due to multiple autodetected components having the

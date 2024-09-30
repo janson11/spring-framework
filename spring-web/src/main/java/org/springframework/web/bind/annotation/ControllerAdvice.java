@@ -31,6 +31,8 @@ import org.springframework.stereotype.Component;
  * {@link ExceptionHandler @ExceptionHandler}, {@link InitBinder @InitBinder}, or
  * {@link ModelAttribute @ModelAttribute} methods to be shared across
  * multiple {@code @Controller} classes.
+ * 为声明 {@link ExceptionHandler @ExceptionHandler}, {@link InitBinder @InitBinder}, 或
+ * {@link ModelAttribute @ModelAttribute} 方法的类提供 {@link Component @Component} 的特殊化。
  *
  * <p>Classes annotated with {@code @ControllerAdvice} can be declared explicitly
  * as Spring beans or auto-detected via classpath scanning. All such beans are

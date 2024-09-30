@@ -28,8 +28,10 @@ import org.springframework.stereotype.Controller;
 /**
  * A convenience annotation that is itself annotated with
  * {@link Controller @Controller} and {@link ResponseBody @ResponseBody}.
+ * 一个组合注解，它本身带有 {@link Controller @Controller} 和 {@link ResponseBody @ResponseBody} 注解。
  * <p>
  * Types that carry this annotation are treated as controllers where
+ * 类型带有此注解被视为控制器，其中 {@link RequestMapping @RequestMapping} 方法默认使用 {@link ResponseBody @ResponseBody} 语义。
  * {@link RequestMapping @RequestMapping} methods assume
  * {@link ResponseBody @ResponseBody} semantics by default.
  *
@@ -37,6 +39,8 @@ import org.springframework.stereotype.Controller;
  * {@code HandlerMapping}-{@code HandlerAdapter} pair is configured such as the
  * {@code RequestMappingHandlerMapping}-{@code RequestMappingHandlerAdapter}
  * pair which are the default in the MVC Java config and the MVC namespace.
+ * RestController}将在适当的情况下处理{@code HandlerMapping}-{@code HandlerAdapter}对配置为
+ * {@code RequestMappingHandlerMapping}-{@code RequestMappingHandlerAdapter}对，这是MVC Java配置和MVC命名空间中的默认值。
  *
  * @author Rossen Stoyanchev
  * @author Sam Brannen
@@ -52,6 +56,7 @@ public @interface RestController {
 	/**
 	 * The value may indicate a suggestion for a logical component name,
 	 * to be turned into a Spring bean in case of an autodetected component.
+	 * 这个值可能表示一个建议的逻辑组件名称，如果是自动检测到的组件，将被转换为Spring bean。
 	 * @return the suggested component name, if any (or empty String otherwise)
 	 * @since 4.0.1
 	 */

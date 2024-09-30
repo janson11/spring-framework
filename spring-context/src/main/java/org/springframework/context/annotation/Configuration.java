@@ -31,6 +31,7 @@ import org.springframework.stereotype.Component;
  * Indicates that a class declares one or more {@link Bean @Bean} methods and
  * may be processed by the Spring container to generate bean definitions and
  * service requests for those beans at runtime, for example:
+ * 表明一个类声明了一个或多个{@link Bean @Bean}方法，并可能由Spring容器在运行时生成bean定义和为这些bean提供服务，例如：
  *
  * <pre class="code">
  * &#064;Configuration

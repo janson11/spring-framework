@@ -28,6 +28,8 @@ import org.springframework.core.annotation.AliasFor;
  * Indicates that an annotated class is a "Repository", originally defined by
  * Domain-Driven Design (Evans, 2003) as "a mechanism for encapsulating storage,
  * retrieval, and search behavior which emulates a collection of objects".
+ * 表明注解类是一个“存储库”，最初由“领域驱动设计”（Evans，2003）定义为“一种封装存储、检索和搜索行为的机制，
+ * 它模拟对象集合的行为”。
  *
  * <p>Teams implementing traditional Java EE patterns such as "Data Access Object"
  * may also apply this stereotype to DAO classes, though care should be taken to
@@ -65,6 +67,7 @@ public @interface Repository {
 	 * The value may indicate a suggestion for a logical component name,
 	 * to be turned into a Spring bean in case of an autodetected component.
 	 * @return the suggested component name, if any (or empty String otherwise)
+	 * 这个值可以指示一个逻辑组件名称的建议，如果是自动检测到的组件，则将其转换为Spring bean。
 	 */
 	@AliasFor(annotation = Component.class)
 	String value() default "";

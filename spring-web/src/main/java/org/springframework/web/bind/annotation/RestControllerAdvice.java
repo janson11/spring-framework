@@ -29,10 +29,12 @@ import org.springframework.core.annotation.AliasFor;
  * A convenience annotation that is itself annotated with
  * {@link ControllerAdvice @ControllerAdvice}
  * and {@link ResponseBody @ResponseBody}.
+ * 一个组合注解，它本身被注解了 {@link ControllerAdvice @ControllerAdvice} 和 {@link ResponseBody @ResponseBody}。
  *
  * <p>Types that carry this annotation are treated as controller advice where
  * {@link ExceptionHandler @ExceptionHandler} methods assume
  * {@link ResponseBody @ResponseBody} semantics by default.
+ * 类型上带有此注解的类被视为控制器建议，其中 {@link ExceptionHandler @ExceptionHandler} 方法默认使用 {@link ResponseBody @ResponseBody} 语义。
  *
  * <p><b>NOTE:</b> {@code @RestControllerAdvice} is processed if an appropriate
  * {@code HandlerMapping}-{@code HandlerAdapter} pair is configured such as the

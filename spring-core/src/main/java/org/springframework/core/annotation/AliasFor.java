@@ -26,6 +26,7 @@ import java.lang.annotation.Target;
 /**
  * {@code @AliasFor} is an annotation that is used to declare aliases for
  * annotation attributes.
+ * 是一个注解，用于声明注解属性的别名。
  *
  * <h3>Usage Scenarios</h3>
  * <ul>

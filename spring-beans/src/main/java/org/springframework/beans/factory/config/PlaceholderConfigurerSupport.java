@@ -29,6 +29,10 @@ import org.springframework.util.StringValueResolver;
  * properties file or other {@linkplain org.springframework.core.env.PropertySource
  * property source} into bean definitions.
  *
+ * 抽象基类，用于配置资源属性的属性资源配置器，解析bean定义属性值中的占位符。
+ * 实现将属性文件或其他属性源中的值“推”入bean定义中。
+ *
+ *
  * <p>The default placeholder syntax follows the Ant / Log4J / JSP EL style:
  *
  * <pre class="code">${...}</pre>

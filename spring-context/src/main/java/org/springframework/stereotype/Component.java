@@ -26,6 +26,8 @@ import java.lang.annotation.Target;
  * Indicates that an annotated class is a "component".
  * Such classes are considered as candidates for auto-detection
  * when using annotation-based configuration and classpath scanning.
+ * 表明注解类是一个“组件”。
+ * 这些类被认为是使用基于注解的配置和类路径扫描时自动检测的候选对象。
  *
  * <p>Other class-level annotations may be considered as identifying
  * a component as well, typically a special kind of component:
@@ -49,6 +51,8 @@ public @interface Component {
 	 * The value may indicate a suggestion for a logical component name,
 	 * to be turned into a Spring bean in case of an autodetected component.
 	 * @return the suggested component name, if any (or empty String otherwise)
+	 * 这里可以提供一个建议的组件名称，如果自动检测到组件，则将其转换为Spring bean。
+	 *
 	 */
 	String value() default "";
 

@@ -112,6 +112,8 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 	/**
 	 * Processing occurs by replacing ${...} placeholders in bean definitions by resolving each
 	 * against this configurer's set of {@link PropertySources}, which includes:
+	 * 处理过程包括将${...}占位符替换为配置程序的属性源集，该属性源集包括：
+	 *
 	 * <ul>
 	 * <li>all {@linkplain org.springframework.core.env.ConfigurableEnvironment#getPropertySources
 	 * environment property sources}, if an {@code Environment} {@linkplain #setEnvironment is present}
