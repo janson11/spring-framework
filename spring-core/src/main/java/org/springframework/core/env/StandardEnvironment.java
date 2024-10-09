@@ -19,6 +19,7 @@ package org.springframework.core.env;
 /**
  * {@link Environment} implementation suitable for use in 'standard' (i.e. non-web)
  * applications.
+ * Environment实现适用于标准（即非Web）应用程序。
  *
  * <p>In addition to the usual functions of a {@link ConfigurableEnvironment} such as
  * property resolution and profile-related operations, this implementation configures two

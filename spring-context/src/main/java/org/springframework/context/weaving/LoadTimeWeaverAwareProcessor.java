@@ -29,6 +29,7 @@ import org.springframework.util.Assert;
  * {@link org.springframework.beans.factory.config.BeanPostProcessor}
  * implementation that passes the context's default {@link LoadTimeWeaver}
  * to beans that implement the {@link LoadTimeWeaverAware} interface.
+ * BeanPostProcessor的实现，它将上下文的默认LoadTimeWeaver传递给实现LoadTimeWeaverAware接口的bean。
  *
  * <p>{@link org.springframework.context.ApplicationContext Application contexts}
  * will automatically register this with their underlying {@link BeanFactory bean factory},

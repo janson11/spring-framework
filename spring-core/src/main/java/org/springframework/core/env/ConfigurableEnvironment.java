@@ -24,6 +24,8 @@ import java.util.Map;
  * property sources. Allows clients to set and validate required properties, customize the
  * conversion service and more through the {@link ConfigurablePropertyResolver}
  * superinterface.
+ * 配置接口，由大多数或所有{@link Environment}类型实现。提供设置活动和默认配置文件的功能，以及操纵底层属性源的能力。
+ * 允许客户端设置和验证所需属性，自定义转换服务等，通过{@link ConfigurablePropertyResolver}超接口实现。
  *
  * <h2>Manipulating property sources</h2>
  * <p>Property sources may be removed, reordered, or replaced; and additional

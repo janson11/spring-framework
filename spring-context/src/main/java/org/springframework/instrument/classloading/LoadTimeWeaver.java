@@ -21,6 +21,7 @@ import java.lang.instrument.ClassFileTransformer;
 /**
  * Defines the contract for adding one or more
  * {@link ClassFileTransformer ClassFileTransformers} to a {@link ClassLoader}.
+ * 定义了向{@link ClassLoader}添加一个或多个{@link ClassFileTransformer ClassFileTransformers}的契约。
  *
  * <p>Implementations may operate on the current context {@code ClassLoader}
  * or expose their own instrumentable {@code ClassLoader}.

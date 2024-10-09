@@ -51,9 +51,13 @@ public interface ConfigurableListableBeanFactory
 
 	/**
 	 * Ignore the given dependency interface for autowiring.
+	 * 忽略给定的依赖接口的自动装配：例如，String。默认是不忽略任何接口。
 	 * <p>This will typically be used by application contexts to register
 	 * dependencies that are resolved in other ways, like BeanFactory through
 	 * BeanFactoryAware or ApplicationContext through ApplicationContextAware.
+	 * 这种方法通常用于应用程序上下文注册依赖项，这些依赖项是通过其他方式解析的，
+	 * 例如BeanFactory通过BeanFactoryAware或ApplicationContext通过ApplicationContextAware进行解析。
+	 *
 	 * <p>By default, only the BeanFactoryAware interface is ignored.
 	 * For further types to ignore, invoke this method for each type.
 	 * @param ifc the dependency interface to ignore
@@ -64,6 +68,7 @@ public interface ConfigurableListableBeanFactory
 
 	/**
 	 * Register a special dependency type with corresponding autowired value.
+	 * 注册特殊的依赖类型及其自动装配的值。
 	 * <p>This is intended for factory/context references that are supposed
 	 * to be autowirable but are not defined as beans in the factory:
 	 * e.g. a dependency of type ApplicationContext resolved to the

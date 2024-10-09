@@ -32,9 +32,12 @@ import org.springframework.lang.Nullable;
  * to the application context client methods in the
  * {@link org.springframework.context.ApplicationContext} interface.
  *
+ * SPI接口，用于实现大多数（或所有）应用程序上下文。除了ApplicationContext接口中的应用程序上下文客户端方法之外，还提供了配置应用程序上下文的功能。
+ *
  * <p>Configuration and lifecycle methods are encapsulated here to avoid
  * making them obvious to ApplicationContext client code. The present
  * methods should only be used by startup and shutdown code.
+ * 配置和生命周期方法都封装在这里，以避免将它们对ApplicationContext客户端代码的可见性。当前的方法仅应由启动和关闭代码使用。
  *
  * @author Juergen Hoeller
  * @author Chris Beams
@@ -138,6 +141,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	/**
 	 * Add a new ApplicationListener that will be notified on context events
 	 * such as context refresh and context shutdown.
+	 * 添加一个新的ApplicationListener，它将在上下文事件（例如上下文刷新和上下文关闭）上被通知。
 	 * <p>Note that any ApplicationListener registered here will be applied
 	 * on refresh if the context is not active yet, or on the fly with the
 	 * current event multicaster in case of a context that is already active.
@@ -169,9 +173,13 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	 * Load or refresh the persistent representation of the configuration, which
 	 * might be from Java-based configuration, an XML file, a properties file, a
 	 * relational database schema, or some other format.
+	 * 加载或刷新配置的持久表示形式，可能来自基于Java的配置、XML文件、属性文件、关系数据库模式或其他格式。
 	 * <p>As this is a startup method, it should destroy already created singletons
 	 * if it fails, to avoid dangling resources. In other words, after invocation
 	 * of this method, either all or no singletons at all should be instantiated.
+	 *  因为这是一个启动方法，所以如果失败，它应该销毁已经创建的单例，以避免资源泄漏。
+	 *  换句话说，在调用此方法之后，要么所有或没有任何单例都应该被实例化。
+	 *
 	 * @throws BeansException if the bean factory could not be initialized
 	 * @throws IllegalStateException if already initialized and multiple refresh
 	 * attempts are not supported
@@ -181,6 +189,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	/**
 	 * Register a shutdown hook with the JVM runtime, closing this context
 	 * on JVM shutdown unless it has already been closed at that time.
+	 * 注册JVM运行时关闭钩子，在JVM关闭时关闭此上下文，除非它已经在那时关闭。
 	 * <p>This method can be called multiple times. Only one shutdown hook
 	 * (at max) will be registered for each context instance.
 	 * <p>As of Spring Framework 5.2, the {@linkplain Thread#getName() name} of
@@ -193,6 +202,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	/**
 	 * Close this application context, releasing all resources and locks that the
 	 * implementation might hold. This includes destroying all cached singleton beans.
+	 * 关闭此应用程序上下文，释放实现可能持有的所有资源和锁。这包括销毁所有缓存的单例bean。
 	 * <p>Note: Does <i>not</i> invoke {@code close} on a parent context;
 	 * parent contexts have their own, independent lifecycle.
 	 * <p>This method can be called multiple times without side effects: Subsequent
