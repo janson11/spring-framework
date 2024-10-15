@@ -177,6 +177,7 @@ public class GenericWebApplicationContext extends GenericApplicationContext
 
 	/**
 	 * Initialize the theme capability.
+	 * 初始化主题功能
 	 */
 	@Override
 	protected void onRefresh() {

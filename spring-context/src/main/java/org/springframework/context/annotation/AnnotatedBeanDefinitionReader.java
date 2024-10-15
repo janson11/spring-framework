@@ -35,9 +35,11 @@ import org.springframework.util.Assert;
 
 /**
  * Convenient adapter for programmatic registration of bean classes.
+ * 转换器，用于以编程方式注册bean类。
  *
  * <p>This is an alternative to {@link ClassPathBeanDefinitionScanner}, applying
  * the same resolution of annotations but for explicitly registered classes only.
+ * 这是一种替代{@link ClassPathBeanDefinitionScanner}的转换器，用于仅适用于显式注册类的注解解析。
  *
  * @author Juergen Hoeller
  * @author Chris Beams
@@ -129,6 +131,7 @@ public class AnnotatedBeanDefinitionReader {
 	 * Register one or more component classes to be processed.
 	 * <p>Calls to {@code register} are idempotent; adding the same
 	 * component class more than once has no additional effect.
+	 * 注册一个或多个组件类，以便处理。调用register是幂等的，添加相同的组件类多次没有额外的效果。
 	 * @param componentClasses one or more component classes,
 	 * e.g. {@link Configuration @Configuration} classes
 	 */
@@ -218,6 +221,7 @@ public class AnnotatedBeanDefinitionReader {
 	/**
 	 * Register a bean from the given bean class, deriving its metadata from
 	 * class-declared annotations.
+	 * 注册一个bean，从给定的bean类中，使用类声明的注解来推断元数据。
 	 * @param beanClass the class of the bean
 	 * @param name an explicit name for the bean
 	 * (or {@code null} for generating a default bean name)
@@ -236,13 +240,14 @@ public class AnnotatedBeanDefinitionReader {
 	/**
 	 * Register a bean from the given bean class, deriving its metadata from
 	 * class-declared annotations.
-	 * @param beanClass the class of the bean
-	 * @param name an explicit name for the bean
+	 * 注册一个bean，从给定的bean类中，使用类声明的注解来推断元数据。
+	 * @param beanClass the class of the bean 这个bean的类
+	 * @param name an explicit name for the bean 这个bean的名称
 	 * @param qualifiers specific qualifier annotations to consider, if any,
-	 * in addition to qualifiers at the bean class level
-	 * @param supplier a callback for creating an instance of the bean
+	 * in addition to qualifiers at the bean class level 要考虑的特定限定符注释（如果有的话）除了bean类级别的限定符之外
+	 * @param supplier a callback for creating an instance of the bean 一个回调，用于创建bean的实例（可能是lambda表达式或方法引用）
 	 * (may be {@code null})
-	 * @param customizers one or more callbacks for customizing the factory's
+	 * @param customizers one or more callbacks for customizing the factory's 一个或多个回调，用于定制BeanFactory的BeanDefinition
 	 * {@link BeanDefinition}, e.g. setting a lazy-init or primary flag
 	 * @since 5.0
 	 */

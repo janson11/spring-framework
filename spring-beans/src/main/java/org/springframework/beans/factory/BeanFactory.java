@@ -22,11 +22,15 @@ import org.springframework.lang.Nullable;
 
 /**
  * The root interface for accessing a Spring bean container.
+ * 根接口，用于访问Spring Bean容器。
  *
  * <p>This is the basic client view of a bean container;
  * further interfaces such as {@link ListableBeanFactory} and
  * {@link org.springframework.beans.factory.config.ConfigurableBeanFactory}
  * are available for specific purposes.
+ * 这是bean容器的基本客户端视图；
+ * 其他接口，如{@link ListableBeanFactory}和{@link org.springframework.beans.factory.config.ConfigurableBeanFactory}，
+ * 可用于特定目的。
  *
  * <p>This interface is implemented by objects that hold a number of bean definitions,
  * each uniquely identified by a String name. Depending on the bean definition,
@@ -131,9 +135,11 @@ public interface BeanFactory {
 
 	/**
 	 * Return an instance, which may be shared or independent, of the specified bean.
+	 * 返回一个实例,哪个可以与指定的bean共享或独立
 	 * <p>This method allows a Spring BeanFactory to be used as a replacement for the
 	 * Singleton or Prototype design pattern. Callers may retain references to
 	 * returned objects in the case of Singleton beans.
+	 * 这个方法允许Spring BeanFactory用作单例或原型设计模式的替代品。调用者可以保留对返回对象的引用，对于单例bean来说是这样。
 	 * <p>Translates aliases back to the corresponding canonical bean name.
 	 * <p>Will ask the parent factory if the bean cannot be found in this factory instance.
 	 * @param name the name of the bean to retrieve
@@ -145,15 +151,18 @@ public interface BeanFactory {
 
 	/**
 	 * Return an instance, which may be shared or independent, of the specified bean.
+	 * 返回一个实例,哪个可以与指定的bean共享或独立
 	 * <p>Behaves the same as {@link #getBean(String)}, but provides a measure of type
 	 * safety by throwing a BeanNotOfRequiredTypeException if the bean is not of the
 	 * required type. This means that ClassCastException can't be thrown on casting
 	 * the result correctly, as can happen with {@link #getBean(String)}.
+	 * 表现与{@link #getBean(String)}相同，但提供了一种类型安全的保证，如果bean不是所需类型，则抛出BeanNotOfRequiredTypeException。
+	 * 这意味着ClassCastException不能在正确的结果上发生，就像{@link #getBean(String)}一样。
 	 * <p>Translates aliases back to the corresponding canonical bean name.
 	 * <p>Will ask the parent factory if the bean cannot be found in this factory instance.
-	 * @param name the name of the bean to retrieve
+	 * @param name the name of the bean to retrieve 要检索的bean的名称
 	 * @param requiredType type the bean must match; can be an interface or superclass
-	 * @return an instance of the bean
+	 * @return an instance of the bean 类型的bean必须匹配；可以是接口还是超类
 	 * @throws NoSuchBeanDefinitionException if there is no such bean definition
 	 * @throws BeanNotOfRequiredTypeException if the bean is not of the required type
 	 * @throws BeansException if the bean could not be created
@@ -178,10 +187,13 @@ public interface BeanFactory {
 
 	/**
 	 * Return the bean instance that uniquely matches the given object type, if any.
+	 * 返回唯一匹配给定对象类型（如果有的话）的bean实例
 	 * <p>This method goes into {@link ListableBeanFactory} by-type lookup territory
 	 * but may also be translated into a conventional by-name lookup based on the name
 	 * of the given type. For more extensive retrieval operations across sets of beans,
 	 * use {@link ListableBeanFactory} and/or {@link BeanFactoryUtils}.
+	 * 这个方法进入{@link ListableBeanFactory}的by-type查找领域，但也可能被转换为基于给定类型的名称的传统的by-name查找。
+	 * 对于bean集中的更加广泛的检索操作，请使用{@link ListableBeanFactory}和{@link BeanFactoryUtils}。
 	 * @param requiredType type the bean must match; can be an interface or superclass
 	 * @return an instance of the single bean matching the required type
 	 * @throws NoSuchBeanDefinitionException if no bean of the given type was found

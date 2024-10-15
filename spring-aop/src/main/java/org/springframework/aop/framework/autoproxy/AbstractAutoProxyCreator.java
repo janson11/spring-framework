@@ -55,6 +55,7 @@ import org.springframework.util.StringUtils;
  * {@link org.springframework.beans.factory.config.BeanPostProcessor} implementation
  * that wraps each eligible bean with an AOP proxy, delegating to specified interceptors
  * before invoking the bean itself.
+ * BeanPostProcessor的实现,用AOP代理包装每个符合条件的bean，委托给指定的拦截器,在调用bean本身之前.
  *
  * <p>This class distinguishes between "common" interceptors: shared for all proxies it
  * creates, and "specific" interceptors: unique per bean instance. There need not be any
@@ -290,6 +291,8 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	/**
 	 * Create a proxy with the configured interceptors if the bean is
 	 * identified as one to proxy by the subclass.
+	 * 如果bean是被子类标识为要代理的对象，则使用配置的拦截器创建代理.
+	 *
 	 * @see #getAdvicesAndAdvisorsForBean
 	 */
 	@Override

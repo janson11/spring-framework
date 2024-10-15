@@ -49,6 +49,9 @@ public abstract class UiApplicationContextUtils {
 	 * Initialize the ThemeSource for the given application context,
 	 * autodetecting a bean with the name "themeSource". If no such
 	 * bean is found, a default (empty) ThemeSource will be used.
+	 * 初始化给定的应用程序上下文的主题源，通过名称"themeSource"自动检测bean。
+	 * 如果没有找到这样的bean，将使用默认的（空的）主题源。
+	 *
 	 * @param context current application context
 	 * @return the initialized theme source (will never be {@code null})
 	 * @see #THEME_SOURCE_BEAN_NAME
