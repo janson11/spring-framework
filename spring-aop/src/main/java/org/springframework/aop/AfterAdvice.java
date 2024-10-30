@@ -20,6 +20,7 @@ import org.aopalliance.aop.Advice;
 
 /**
  * Common marker interface for after advice,
+ * 通用标记接口，用于后置通知。
  * such as {@link AfterReturningAdvice} and {@link ThrowsAdvice}.
  *
  * @author Juergen Hoeller

@@ -20,11 +20,14 @@ import java.lang.reflect.Method;
 
 /**
  * Part of a {@link Pointcut}: Checks whether the target method is eligible for advice.
+ * 切点接口，用于判断目标方法是否符合切点表达式。
  *
  * <p>A MethodMatcher may be evaluated <b>statically</b> or at <b>runtime</b> (dynamically).
  * Static matching involves method and (possibly) method attributes. Dynamic matching
  * also makes arguments for a particular call available, and any effects of running
  * previous advice applying to the joinpoint.
+ * 一个MethodMatcher可以静态匹配（方法和方法属性）或者动态匹配（提供方法调用的参数和运行之前的通知产生的影响）。
+ * 静态匹配在编译时进行，而动态匹配在运行时进行。
  *
  * <p>If an implementation returns {@code false} from its {@link #isRuntime()}
  * method, evaluation can be performed statically, and the result will be the same
@@ -54,6 +57,7 @@ public interface MethodMatcher {
 
 	/**
 	 * Perform static checking whether the given method matches.
+	 * 表现为静态匹配，即方法和方法属性是否匹配。
 	 * <p>If this returns {@code false} or if the {@link #isRuntime()}
 	 * method returns {@code false}, no runtime check (i.e. no
 	 * {@link #matches(java.lang.reflect.Method, Class, Object[])} call)
@@ -79,6 +83,7 @@ public interface MethodMatcher {
 	/**
 	 * Check whether there a runtime (dynamic) match for this method,
 	 * which must have matched statically.
+	 * 检查是否存在动态匹配，即是否需要在运行时调用3-参数matches方法。
 	 * <p>This method is invoked only if the 2-arg matches method returns
 	 * {@code true} for the given method and target class, and if the
 	 * {@link #isRuntime()} method returns {@code true}. Invoked

@@ -20,6 +20,7 @@ import java.io.Serializable;
 
 /**
  * Canonical Pointcut instance that always matches.
+ * 总是匹配的规范化切入点实例。
  *
  * @author Rod Johnson
  */

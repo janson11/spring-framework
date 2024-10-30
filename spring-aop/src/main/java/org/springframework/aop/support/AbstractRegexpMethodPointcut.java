@@ -28,6 +28,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * Abstract base regular expression pointcut bean. JavaBean properties are:
+ * 抽象基类正则表达式切点。JavaBean属性：
  * <ul>
  * <li>pattern: regular expression for the fully-qualified method names to match.
  * The exact regexp syntax will depend on the subclass (e.g. Perl5 regular expressions)
