@@ -23,6 +23,10 @@ import java.util.regex.PatternSyntaxException;
 /**
  * Regular expression pointcut based on the {@code java.util.regex} package.
  * Supports the following JavaBean properties:
+ * 正则表达式方法切点是基于java.util.regex包的。
+ * 支持以下JavaBean属性：
+ *
+ *
  * <ul>
  * <li>pattern: regular expression for the fully-qualified method names to match
  * <li>patterns: alternative property taking a String array of patterns. The result will
@@ -90,6 +94,7 @@ public class JdkRegexpMethodPointcut extends AbstractRegexpMethodPointcut {
 
 	/**
 	 * Compiles the supplied {@code String[]} into an array of
+	 * 编写的字符串数组，并将其编译为Pattern数组。
 	 * {@link Pattern} objects and returns that array.
 	 */
 	private Pattern[] compilePatterns(String[] source) throws PatternSyntaxException {

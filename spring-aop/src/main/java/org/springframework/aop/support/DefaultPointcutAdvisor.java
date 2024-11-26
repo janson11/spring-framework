@@ -60,6 +60,7 @@ public class DefaultPointcutAdvisor extends AbstractGenericPointcutAdvisor imple
 
 	/**
 	 * Create a DefaultPointcutAdvisor, specifying Pointcut and Advice.
+	 * 创建一个 DefaultPointcutAdvisor，指定 Pointcut 和 Advice。而Advice属性则使用父类中的定义
 	 * @param pointcut the Pointcut targeting the Advice
 	 * @param advice the Advice to run when Pointcut matches
 	 */

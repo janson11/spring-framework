@@ -55,17 +55,20 @@ public abstract class AbstractRegexpMethodPointcut extends StaticMethodMatcherPo
 
 	/**
 	 * Regular expressions to match.
+	 * 正则表达式匹配。
 	 */
 	private String[] patterns = new String[0];
 
 	/**
 	 * Regular expressions <strong>not</strong> to match.
+	 * 正则表达式不匹配。
 	 */
 	private String[] excludedPatterns = new String[0];
 
 
 	/**
 	 * Convenience method when we have only a single pattern.
+	 * 方便的方法，当我们只有一个模式时。
 	 * Use either this method or {@link #setPatterns}, not both.
 	 * @see #setPatterns
 	 */
@@ -76,6 +79,8 @@ public abstract class AbstractRegexpMethodPointcut extends StaticMethodMatcherPo
 	/**
 	 * Set the regular expressions defining methods to match.
 	 * Matching will be the union of all these; if any match, the pointcut matches.
+	 * 设置正则表达式定义的方法匹配。
+	 * 匹配将是所有这些的联合；如果任何匹配，则切点匹配。
 	 * @see #setPattern
 	 */
 	public void setPatterns(String... patterns) {

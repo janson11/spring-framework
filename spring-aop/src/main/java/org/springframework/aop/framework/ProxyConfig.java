@@ -23,6 +23,7 @@ import org.springframework.util.Assert;
 /**
  * Convenience superclass for configuration used in creating proxies,
  * to ensure that all proxy creators have consistent properties.
+ * 用于创建代理的配置的便利超类；确保所有代理创建者具有一致的属性
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -48,13 +49,18 @@ public class ProxyConfig implements Serializable {
 	/**
 	 * Set whether to proxy the target class directly, instead of just proxying
 	 * specific interfaces. Default is "false".
+	 * 设置是否直接代理目标类，而不是仅仅代理特定接口。默认为“false”。
 	 * <p>Set this to "true" to force proxying for the TargetSource's exposed
 	 * target class. If that target class is an interface, a JDK proxy will be
 	 * created for the given interface. If that target class is any other class,
 	 * a CGLIB proxy will be created for the given class.
+	 * 将此设置为“true”以强制TargetSource的暴露代理目标类。如果目标类是接口，那么JDK代理就是为给定接口创建。
+	 * 如果目标类是其他类,将为给定的类创建一个CGLIB代理.
 	 * <p>Note: Depending on the configuration of the concrete proxy factory,
 	 * the proxy-target-class behavior will also be applied if no interfaces
 	 * have been specified (and no interface autodetection is activated).
+	 * 注意: 根据具体代理工厂的配置，
+	 * 如果没有接口，proxy-target-class行为也会被应用已指定（且未激活接口自动检测）
 	 * @see org.springframework.aop.TargetSource#getTargetClass()
 	 */
 	public void setProxyTargetClass(boolean proxyTargetClass) {
@@ -63,6 +69,7 @@ public class ProxyConfig implements Serializable {
 
 	/**
 	 * Return whether to proxy the target class directly as well as any interfaces.
+	 * 返回是否直接代理目标类以及任何接口,默认false
 	 */
 	public boolean isProxyTargetClass() {
 		return this.proxyTargetClass;
