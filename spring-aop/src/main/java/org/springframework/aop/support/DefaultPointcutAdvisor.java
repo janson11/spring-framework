@@ -25,10 +25,12 @@ import org.springframework.lang.Nullable;
 
 /**
  * Convenient Pointcut-driven Advisor implementation.
+ * 方便的切点驱动的通知器的实现。
  *
  * <p>This is the most commonly used Advisor implementation. It can be used
  * with any pointcut and advice type, except for introductions. There is
  * normally no need to subclass this class, or to implement custom Advisors.
+ * 这是一个最常用的通知器实现。它可以与任何切点和通知类型一起使用，但不包括引入。通常不需要子类化此类，也不需要实现自定义通知器。
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

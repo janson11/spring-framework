@@ -92,6 +92,7 @@ public class ProxyConfig implements Serializable {
 
 	/**
 	 * Return whether proxies should perform aggressive optimizations.
+	 * 返回代理是否应该执行主动优化,默认false
 	 */
 	public boolean isOptimize() {
 		return this.optimize;
@@ -138,9 +139,12 @@ public class ProxyConfig implements Serializable {
 
 	/**
 	 * Set whether this config should be frozen.
+	 * 设置配置是否冻结
 	 * <p>When a config is frozen, no advice changes can be made. This is
 	 * useful for optimization, and useful when we don't want callers to
 	 * be able to manipulate configuration after casting to Advised.
+	 * 当配置被冻结时，不能进行建议更改。这是对优化很有用，当我们不希望调用者这样做时也很有用
+	 * 能够操纵配置后建议
 	 */
 	public void setFrozen(boolean frozen) {
 		this.frozen = frozen;

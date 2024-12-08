@@ -86,6 +86,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	/**
 	 * Interfaces to be implemented by the proxy. Held in List to keep the order
 	 * of registration, to create JDK proxy with specified order of interfaces.
+	 * 被代理实现的接口,保存在列表中以保持顺序的注册，创建具有指定接口顺序的JDK代理
 	 */
 	private List<Class<?>> interfaces = new ArrayList<>();
 
@@ -191,6 +192,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 
 	/**
 	 * Set the interfaces to be proxied.
+	 * 设置被代理的接口
 	 */
 	public void setInterfaces(Class<?>... interfaces) {
 		Assert.notNull(interfaces, "Interfaces must not be null");
