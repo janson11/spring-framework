@@ -46,6 +46,9 @@ import org.springframework.util.CollectionUtils;
  * Base class for AOP proxy configuration managers.
  * These are not themselves AOP proxies, but subclasses of this class are
  * normally factories from which AOP proxy instances are obtained directly.
+ * AOP代理配置管理器的基类。
+ * 这些本身不是AOP代理，但是这个类的子类是
+ * 通常是从直接获得AOP代理实例的工厂
  *
  * <p>This class frees subclasses of the housekeeping of Advices
  * and Advisors, but doesn't actually implement proxy creation
@@ -67,6 +70,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	/**
 	 * Canonical TargetSource when there's no target, and behavior is
 	 * supplied by the advisors.
+	 *  TargetSource持有一个比较重要的属性，targetClass
 	 */
 	public static final TargetSource EMPTY_TARGET_SOURCE = EmptyTargetSource.INSTANCE;
 
@@ -81,6 +85,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	AdvisorChainFactory advisorChainFactory = new DefaultAdvisorChainFactory();
 
 	/** Cache with Method as key and advisor chain List as value. */
+	// 缓存 Method对象 和其对应的 拦截器链列表List<Advisor>
 	private transient Map<MethodCacheKey, List<Object>> methodCache;
 
 	/**
@@ -471,6 +476,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 
 
 	/**
+	 * 获取拦截器链，为提高效率，同时设置了缓存
 	 * Determine a list of {@link org.aopalliance.intercept.MethodInterceptor} objects
 	 * for the given method, based on this configuration.
 	 * @param method the proxied method
@@ -478,9 +484,13 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	 * @return a List of MethodInterceptors (may also include InterceptorAndDynamicMethodMatchers)
 	 */
 	public List<Object> getInterceptorsAndDynamicInterceptionAdvice(Method method, @Nullable Class<?> targetClass) {
+		// 如果 缓存methodCache 中有就从缓存中获取 该Method对象 对应的拦截器链
+		// 没有，则调用 (DefaultAdvisorChainFactory)advisorChainFactory 的
+		// getInterceptorsAndDynamicInterceptionAdvice() 方法进行获取，并缓存到 methodCache 中
 		MethodCacheKey cacheKey = new MethodCacheKey(method);
 		List<Object> cached = this.methodCache.get(cacheKey);
 		if (cached == null) {
+			// 缓存中没有，则从 AdvisorChainFactory 中获取，然后放进缓存
 			cached = this.advisorChainFactory.getInterceptorsAndDynamicInterceptionAdvice(
 					this, method, targetClass);
 			this.methodCache.put(cacheKey, cached);

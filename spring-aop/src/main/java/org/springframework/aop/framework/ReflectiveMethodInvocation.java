@@ -32,6 +32,7 @@ import org.springframework.lang.Nullable;
 
 /**
  * Spring's implementation of the AOP Alliance
+ * Spring对AOP联盟的实现
  * {@link org.aopalliance.intercept.MethodInvocation} interface,
  * implementing the extended
  * {@link org.springframework.aop.ProxyMethodInvocation} interface.
@@ -82,6 +83,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	/**
 	 * List of MethodInterceptor and InterceptorAndDynamicMethodMatcher
 	 * that need dynamic checks.
+	 * MethodInterceptor和InterceptorAndDynamicMethodMatcher的集合
 	 */
 	protected final List<?> interceptorsAndDynamicMethodMatchers;
 
@@ -158,31 +160,44 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	@Override
 	@Nullable
 	public Object proceed() throws Throwable {
+		// 从拦截器链中按顺序依次调用拦截器，直到所有的拦截器调用完毕，开始调用目标方法，对目标方法的调用
+		// 是在 invokeJoinpoint() 中通过 AopUtils 的 invokeJoinpointUsingReflection() 方法完成的
 		// We start with an index of -1 and increment early.
 		if (this.currentInterceptorIndex == this.interceptorsAndDynamicMethodMatchers.size() - 1) {
+			// invokeJoinpoint() 直接通过 AopUtils 进行目标方法的调用
 			return invokeJoinpoint();
 		}
 
+		// 这里沿着定义好的 interceptorsAndDynamicMethodMatchers拦截器链 进行处理，
+		// 它是一个 List，也没有定义泛型，interceptorOrInterceptionAdvice 是其中的一个元素
 		Object interceptorOrInterceptionAdvice =
 				this.interceptorsAndDynamicMethodMatchers.get(++this.currentInterceptorIndex);
 		if (interceptorOrInterceptionAdvice instanceof InterceptorAndDynamicMethodMatcher) {
+			// 这里通过拦截器的 方法匹配器methodMatcher 进行方法匹配，
+			// 如果 目标类 的 目标方法 和配置的 Pointcut 匹配，那么这个 增强行为advice 将会被执行，
+			// Pointcut 定义了切面方法（要进行增强的方法），advice 定义了增强的行为
 			// Evaluate dynamic method matcher here: static part will already have
 			// been evaluated and found to match.
 			InterceptorAndDynamicMethodMatcher dm =
 					(InterceptorAndDynamicMethodMatcher) interceptorOrInterceptionAdvice;
 			Class<?> targetClass = (this.targetClass != null ? this.targetClass : this.method.getDeclaringClass());
+			// 目标类的目标方法是否为 Pointcut 所定义的切面
 			if (dm.methodMatcher.matches(this.method, targetClass, this.arguments)) {
+				// 执行当前这个 拦截器interceptor 的 增强方法
 				return dm.interceptor.invoke(this);
 			}
 			else {
 				// Dynamic matching failed.
 				// Skip this interceptor and invoke the next in the chain.
+				// 如果不匹配，那么 process()方法 会被递归调用，直到所有的拦截器都被运行过为止
 				return proceed();
 			}
 		}
 		else {
 			// It's an interceptor, so we just invoke it: The pointcut will have
 			// been evaluated statically before this object was constructed.
+			// 如果 interceptorOrInterceptionAdvice 是一个 MethodInterceptor
+			// 则直接调用其对应的方法
 			return ((MethodInterceptor) interceptorOrInterceptionAdvice).invoke(this);
 		}
 	}

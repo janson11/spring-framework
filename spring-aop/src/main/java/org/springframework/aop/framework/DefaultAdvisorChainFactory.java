@@ -38,6 +38,9 @@ import org.springframework.lang.Nullable;
  * A simple but definitive way of working out an advice chain for a Method,
  * given an {@link Advised} object. Always rebuilds each advice chain;
  * caching can be provided by subclasses.
+ * 获取拦截器链的工作是由 AdvisorChainFactory 完成的，他是一个拦截器链的生成工厂。
+ * 由于 AdvisorChainFactory 接口只有一个实现类 DefaultAdvisorChainFactory，所以我们直接看这个类中的实现就行咯。
+ *
  *
  * @author Juergen Hoeller
  * @author Rod Johnson
@@ -53,21 +56,29 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 
 		// This is somewhat tricky... We have to process introductions first,
 		// but we need to preserve order in the ultimate list.
+		// Advisor链 已经在传进来的 config 中持有了，这里可以直接使用。
+		// Advisor 中持有 切面Pointcut 和 增强行为Advice 两个重要属性
 		AdvisorAdapterRegistry registry = GlobalAdvisorAdapterRegistry.getInstance();
 		Advisor[] advisors = config.getAdvisors();
 		List<Object> interceptorList = new ArrayList<>(advisors.length);
 		Class<?> actualClass = (targetClass != null ? targetClass : method.getDeclaringClass());
 		Boolean hasIntroductions = null;
 
+		// 获取注册器，这是一个单例模式的实现
 		for (Advisor advisor : advisors) {
+			// advisor 如果是 PointcutAdvisor 的实例
 			if (advisor instanceof PointcutAdvisor) {
 				// Add it conditionally.
 				PointcutAdvisor pointcutAdvisor = (PointcutAdvisor) advisor;
 				if (config.isPreFiltered() || pointcutAdvisor.getPointcut().getClassFilter().matches(actualClass)) {
+					// 拦截器链是通过 AdvisorAdapterRegistry 的实例对象 registry 来加入的，
+					// AdvisorAdapterRegistry 对 advisor 的织入起到了很大的作用
 					MethodMatcher mm = pointcutAdvisor.getPointcut().getMethodMatcher();
 					boolean match;
+					// 使用 MethodMatchers 的 matches()方法 对目标类的目标方法进行匹配判断
 					if (mm instanceof IntroductionAwareMethodMatcher) {
 						if (hasIntroductions == null) {
+							// 判断 config 中的 Advisors 是否符合配置要求
 							hasIntroductions = hasMatchingIntroductions(advisors, actualClass);
 						}
 						match = ((IntroductionAwareMethodMatcher) mm).matches(method, actualClass, hasIntroductions);
@@ -90,6 +101,7 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 					}
 				}
 			}
+			// advisor 如果是 IntroductionAdvisor 的实例
 			else if (advisor instanceof IntroductionAdvisor) {
 				IntroductionAdvisor ia = (IntroductionAdvisor) advisor;
 				if (config.isPreFiltered() || ia.getClassFilter().matches(actualClass)) {
@@ -108,6 +120,7 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 
 	/**
 	 * Determine whether the Advisors contain matching introductions.
+	 * 判断 config 中的 Advisors 是否符合配置要求
 	 */
 	private static boolean hasMatchingIntroductions(Advisor[] advisors, Class<?> actualClass) {
 		for (Advisor advisor : advisors) {
