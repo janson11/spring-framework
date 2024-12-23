@@ -534,6 +534,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		return this.applicationListeners;
 	}
 
+
+	/**
+	 * 容器初始化的过程：BeanDefinition 的 Resource 定位、BeanDefinition 的载入、BeanDefinition 的注册。
+	 * BeanDefinition 的载入和 bean 的依赖注入是两个独立的过程，依赖注入一般发生在 应用第一次通过
+	 * getBean() 方法从容器获取 bean 时。
+	 *
+	 * 另外需要注意的是，IoC 容器有一个预实例化的配置（即，将 AbstractBeanDefinition 中的 lazyInit 属性
+	 * 设为 true），使用户可以对容器的初始化过程做一个微小的调控，lazyInit 设为 false 的 bean
+	 * 将在容器初始化时进行依赖注入，而不会等到 getBean() 方法调用时才进行
+	 */
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
@@ -678,7 +688,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #getBeanFactory()
 	 */
 	protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
+		// 自己定义了抽象的 refreshBeanFactory() 方法，具体实现交给了自己的子类
 		refreshBeanFactory();
+		// getBeanFactory() 也是一个抽象方法，交由子类实现
+		// 看到这里是不是很容易想起 “模板方法模式”，父类在模板方法中定义好流程，定义好抽象方法
+		// 具体实现交由子类完成
 		return getBeanFactory();
 	}
 
@@ -1372,6 +1386,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	/**
 	 * Return the internal bean factory of the parent context if it implements
 	 * ConfigurableApplicationContext; else, return the parent context itself.
+	 * 返回父上下文的内部bean工厂，如果父上下文实现ConfigurableApplicationContext接口，否则返回父上下文本身。
 	 * @see org.springframework.context.ConfigurableApplicationContext#getBeanFactory
 	 */
 	@Nullable

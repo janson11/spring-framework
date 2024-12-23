@@ -72,6 +72,7 @@ public abstract class AbstractRefreshableConfigApplicationContext extends Abstra
 	/**
 	 * Set the config locations for this application context.
 	 * <p>If not set, the implementation may use a default as appropriate.
+	 * 设置配置位置，以逗号、分号或空格分隔的多个位置。如果没有设置，则可能使用默认值。
 	 */
 	public void setConfigLocations(@Nullable String... locations) {
 		if (locations != null) {

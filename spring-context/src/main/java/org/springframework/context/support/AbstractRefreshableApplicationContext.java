@@ -71,6 +71,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	private Boolean allowCircularReferences;
 
 	/** Bean factory for this context. */
+	// 上下文的bean工厂,这里的 beanFactory 变量是私有的，只能通过 getBeanFactory() 方法来获取，不能直接访问
 	@Nullable
 	private volatile DefaultListableBeanFactory beanFactory;
 
@@ -116,18 +117,25 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 * This implementation performs an actual refresh of this context's underlying
 	 * bean factory, shutting down the previous bean factory (if any) and
 	 * initializing a fresh bean factory for the next phase of the context's lifecycle.
+	 * 在这里完成了容器的初始化，并赋值给自己私有的 beanFactory 属性，为下一步调用做准备
+	 * 从父类 AbstractApplicationContext 继承的抽象方法，自己做了实现
 	 */
 	@Override
 	protected final void refreshBeanFactory() throws BeansException {
+		// 如果已经建立了 IoC 容器，则销毁并关闭容器
 		if (hasBeanFactory()) {
 			destroyBeans();
 			closeBeanFactory();
 		}
 		try {
+			// 创建 IoC 容器，DefaultListableBeanFactory 类实现了 ConfigurableListableBeanFactory 接口
 			DefaultListableBeanFactory beanFactory = createBeanFactory();
 			beanFactory.setSerializationId(getId());
+			// 对 IoC 容器进行定制化，如设置启动参数，开启注解的自动装配等
 			customizeBeanFactory(beanFactory);
+			// 载入 BeanDefinition，在当前类中只定义了抽象的 loadBeanDefinitions() 方法，具体实现 调用子类容器
 			loadBeanDefinitions(beanFactory);
+			// 给自己的属性赋值
 			this.beanFactory = beanFactory;
 		}
 		catch (IOException ex) {
@@ -181,7 +189,8 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 
 	/**
 	 * Create an internal bean factory for this context.
-	 * Called for each {@link #refresh()} attempt.
+	 * 创建一个内部的 beanFactory 实例，并赋值给 beanFactory 属性，供后续调用
+	 * Called for each {@link #refresh()} attempt.每执行一场 refresh() 操作，都会调用一次该方法
 	 * <p>The default implementation creates a
 	 * {@link org.springframework.beans.factory.support.DefaultListableBeanFactory}
 	 * with the {@linkplain #getInternalParentBeanFactory() internal bean factory} of this
@@ -199,6 +208,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 
 	/**
 	 * Customize the internal bean factory used by this context.
+	 * 定制化 IoC 容器的设置，如设置启动参数，开启注解的自动装配等
 	 * Called for each {@link #refresh()} attempt.
 	 * <p>The default implementation applies this context's
 	 * {@linkplain #setAllowBeanDefinitionOverriding "allowBeanDefinitionOverriding"}

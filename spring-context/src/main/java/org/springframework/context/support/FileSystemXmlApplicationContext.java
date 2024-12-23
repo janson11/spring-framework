@@ -27,11 +27,15 @@ import org.springframework.lang.Nullable;
  * from the file system or from URLs, interpreting plain paths as relative
  * file system locations (e.g. "mydir/myfile.txt"). Useful for test harnesses
  * as well as for standalone environments.
+ * 独立的XML应用程序上下文，从文件系统或url中获取上下文定义文件，
+ * 将普通路径解释为相对文件系统位置(例如：“mydir / myfile。txt”)。对于测试线束和独立环境都很有用。
  *
  * <p><b>NOTE:</b> Plain paths will always be interpreted as relative
  * to the current VM working directory, even if they start with a slash.
  * (This is consistent with the semantics in a Servlet container.)
  * <b>Use an explicit "file:" prefix to enforce an absolute file path.</b>
+ * 注意：普通路径总是被解释为相对于当前VM工作目录，即使它们以斜杠开头。（这与Servlet容器中的语义一致。）
+ * 使用显式的“file:”前缀强制使用绝对文件路径。
  *
  * <p>The config location defaults can be overridden via {@link #getConfigLocations},
  * Config locations can either denote concrete files like "/myfiles/context.xml"
@@ -78,6 +82,7 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 	/**
 	 * Create a new FileSystemXmlApplicationContext, loading the definitions
 	 * from the given XML file and automatically refreshing the context.
+	 *  configLocation 包含了 BeanDefinition 所在的文件路径
 	 * @param configLocation file path
 	 * @throws BeansException if context creation failed
 	 */
@@ -88,6 +93,7 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 	/**
 	 * Create a new FileSystemXmlApplicationContext, loading the definitions
 	 * from the given XML files and automatically refreshing the context.
+	 * 可以定义多个 BeanDefinition 所在的文件路径
 	 * @param configLocations array of file paths
 	 * @throws BeansException if context creation failed
 	 */
@@ -99,6 +105,7 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 	 * Create a new FileSystemXmlApplicationContext with the given parent,
 	 * loading the definitions from the given XML files and automatically
 	 * refreshing the context.
+	 * 在定义多个 BeanDefinition 所在的文件路径 的同时，还能指定自己的双亲 IoC 容器
 	 * @param configLocations array of file paths
 	 * @param parent the parent context
 	 * @throws BeansException if context creation failed
@@ -111,7 +118,7 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 	 * Create a new FileSystemXmlApplicationContext, loading the definitions
 	 * from the given XML files.
 	 * @param configLocations array of file paths
-	 * @param refresh whether to automatically refresh the context,
+	 * @param refresh whether to automatically refresh the context, 是否自动刷新上下文
 	 * loading all bean definitions and creating all singletons.
 	 * Alternatively, call refresh manually after further configuring the context.
 	 * @throws BeansException if context creation failed
@@ -124,6 +131,7 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 	/**
 	 * Create a new FileSystemXmlApplicationContext with the given parent,
 	 * loading the definitions from the given XML files.
+	 * 如果应用直接使用 FileSystemXmlApplicationContext 进行实例化，则都会进到这个构造方法中来
 	 * @param configLocations array of file paths
 	 * @param refresh whether to automatically refresh the context,
 	 * loading all bean definitions and creating all singletons.
@@ -136,9 +144,12 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 			String[] configLocations, boolean refresh, @Nullable ApplicationContext parent)
 			throws BeansException {
 
+		// 动态地确定用哪个加载器去加载我们的配置文件
 		super(parent);
+		// 告诉读取器 配置文件放在哪里，该方法继承于父类 AbstractRefreshableConfigApplicationContext
 		setConfigLocations(configLocations);
 		if (refresh) {
+			// 刷新上下文
 			refresh();
 		}
 	}
@@ -146,6 +157,8 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 
 	/**
 	 * Resolve resource paths as file system paths.
+	 * 实例化一个 FileSystemResource 并返回，以便后续对资源的 IO 操作
+	 * 本方法是在其父类 DefaultResourceLoader 的 getResource 方法中被调用的
 	 * <p>Note: Even if a given path starts with a slash, it will get
 	 * interpreted as relative to the current VM working directory.
 	 * This is consistent with the semantics in a Servlet container.
