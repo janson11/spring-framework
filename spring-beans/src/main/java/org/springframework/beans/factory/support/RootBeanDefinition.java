@@ -108,7 +108,7 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	@Nullable
 	Object[] preparedConstructorArguments;
 
-	/** Common lock for the two post-processing fields below. */
+	/** Common lock for the two post-processing fields below. 下面两个后处理字段的公共锁 */
 	final Object postProcessingLock = new Object();
 
 	/** Package-visible field that indicates MergedBeanDefinitionPostProcessor having been applied. */
