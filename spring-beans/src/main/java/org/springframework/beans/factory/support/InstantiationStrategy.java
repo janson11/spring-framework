@@ -25,10 +25,11 @@ import org.springframework.lang.Nullable;
 
 /**
  * Interface responsible for creating instances corresponding to a root bean definition.
+ * 接口，负责创建与根bean定义相对应的实例。
  *
  * <p>This is pulled out into a strategy as various approaches are possible,
  * including using CGLIB to create subclasses on the fly to support Method Injection.
- *
+ * 这是一种策略，因为各种方法都是可能的，包括使用CGLIB动态创建子类来支持方法注入
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.1
