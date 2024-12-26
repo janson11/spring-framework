@@ -60,6 +60,7 @@ final class PostProcessorRegistrationDelegate {
 		// Invoke BeanDefinitionRegistryPostProcessors first, if any.
 		Set<String> processedBeans = new HashSet<>();
 
+		// 由于我们的beanFactory是DefaultListableBeanFactory实例是BeanDefinitionRegistry的子类所以可以进来
 		if (beanFactory instanceof BeanDefinitionRegistry) {
 			BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
 			List<BeanFactoryPostProcessor> regularPostProcessors = new ArrayList<>();
@@ -81,6 +82,12 @@ final class PostProcessorRegistrationDelegate {
 			// uninitialized to let the bean factory post-processors apply to them!
 			// Separate between BeanDefinitionRegistryPostProcessors that implement
 			// PriorityOrdered, Ordered, and the rest.
+			// BeanDefinitionRegistryPostProcessor是BFPP的子类但是比BFPP提前执行
+			// 顺序实现PriorityOrdered接口先被执行，然后是Ordered接口，最后是什么都没实现的BeanDefinitionRegistryPostProcessor
+
+			/**
+			 *都有beanFactory.getBean方法，证明BeanDefinitionRegistryPostProcessor这个bean现在已经被创建了
+			 */
 			List<BeanDefinitionRegistryPostProcessor> currentRegistryProcessors = new ArrayList<>();
 
 			// First, invoke the BeanDefinitionRegistryPostProcessors that implement PriorityOrdered.
@@ -140,6 +147,10 @@ final class PostProcessorRegistrationDelegate {
 
 		// Do not initialize FactoryBeans here: We need to leave all regular beans
 		// uninitialized to let the bean factory post-processors apply to them!
+		// BFPP的执行顺序与上一样
+		/**
+		 *都有beanFactory.getBean方法，证明BFPP这个bean现在已经被创建了
+		 */
 		String[] postProcessorNames =
 				beanFactory.getBeanNamesForType(BeanFactoryPostProcessor.class, true, false);
 

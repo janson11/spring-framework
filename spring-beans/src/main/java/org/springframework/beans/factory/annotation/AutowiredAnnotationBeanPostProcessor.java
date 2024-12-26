@@ -74,6 +74,8 @@ import org.springframework.util.StringUtils;
  * config methods. Such members to be injected are detected through annotations:
  * by default, Spring's {@link Autowired @Autowired} and {@link Value @Value}
  * annotations.
+ *  这个类可以看见当我们创建AutowiredAnnotationBeanPostProcessor对象的时候完成了一个工作就是给
+ * autowiredAnnotationTypes赋值,这个操作有点超前，后面根据这个判断要注入的类中是否有如下的注解
  * BeanPostProcessor的实现，用于自动装配带注解的字段、setter方法和任意配置方法。
  * 通过注解检测到要注入的成员：默认情况下，Spring的{@link Autowired @Autowired}和{@link Value @Value}注解。
  *
