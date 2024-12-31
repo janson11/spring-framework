@@ -489,6 +489,8 @@ public class DispatcherServlet extends FrameworkServlet {
 
 	/**
 	 * This implementation calls {@link #initStrategies}.
+	 * 初始化此 servlet 使用的策略对象。
+	 * 可以在子类中重写，以便初始化进一步的策略对象（U8C）
 	 */
 	@Override
 	protected void onRefresh(ApplicationContext context) {
@@ -497,22 +499,34 @@ public class DispatcherServlet extends FrameworkServlet {
 
 	/**
 	 * Initialize the strategy objects that this servlet uses.
+	 * Initialize the strategy objects that this servlet uses
 	 * <p>May be overridden in subclasses in order to initialize further strategy objects.
+	 * 可以在子类中重写，以初始化进一步的策略对象
 	 */
 	protected void initStrategies(ApplicationContext context) {
+		// 请求解析
 		initMultipartResolver(context);
+		// 多语言,国际化解析
 		initLocaleResolver(context);
+		// 主题view层解析
 		initThemeResolver(context);
+		// 解析url和method的对应关系
 		initHandlerMappings(context);
+		// 适配器匹配
 		initHandlerAdapters(context);
+		// 异常解析
 		initHandlerExceptionResolvers(context);
+		// 视图转发,根据视图名字匹配到一个具体的模板
 		initRequestToViewNameTranslator(context);
+		// 解析模板中的内容
 		initViewResolvers(context);
+		// 初始化flash数据管理器
 		initFlashMapManager(context);
 	}
 
 	/**
 	 * Initialize the MultipartResolver used by this class.
+	 * 初始化该类使用的MultipartResolver。
 	 * <p>If no bean is defined with the given name in the BeanFactory for this namespace,
 	 * no multipart handling is provided.
 	 */
@@ -536,6 +550,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	}
 
 	/**
+	 * Initialize the LocaleResolver used by this class.
 	 * Initialize the LocaleResolver used by this class.
 	 * <p>If no bean is defined with the given name in the BeanFactory for this namespace,
 	 * we default to AcceptHeaderLocaleResolver.
@@ -562,6 +577,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 	/**
 	 * Initialize the ThemeResolver used by this class.
+	 * Initialize the ThemeResolver used by this class
 	 * <p>If no bean is defined with the given name in the BeanFactory for this namespace,
 	 * we default to a FixedThemeResolver.
 	 */
@@ -587,34 +603,42 @@ public class DispatcherServlet extends FrameworkServlet {
 
 	/**
 	 * Initialize the HandlerMappings used by this class.
+	 * 初始化此类使用的 HandlerMappings。
+	 * 如果在 BeanFactory 中没有为此命名空间定义的 HandlerMapping bean，则默认为 BeanNameUrlHandlerMapping
 	 * <p>If no HandlerMapping beans are defined in the BeanFactory for this namespace,
 	 * we default to BeanNameUrlHandlerMapping.
 	 */
 	private void initHandlerMappings(ApplicationContext context) {
 		this.handlerMappings = null;
 
+		// 这个 detectAllHandlerMappings 默认为 true，表示从所有的 IoC容器 中获取所有的HandlerMappings
 		if (this.detectAllHandlerMappings) {
 			// Find all HandlerMappings in the ApplicationContext, including ancestor contexts.
+			// 查找所有的 HandlerMapping，从 应用上下文context 及其双亲上下文中获取
 			Map<String, HandlerMapping> matchingBeans =
 					BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerMapping.class, true, false);
 			if (!matchingBeans.isEmpty()) {
 				this.handlerMappings = new ArrayList<>(matchingBeans.values());
 				// We keep HandlerMappings in sorted order.
+				// 保持 HandlerMappings 的有序性
 				AnnotationAwareOrderComparator.sort(this.handlerMappings);
 			}
 		}
 		else {
 			try {
+				// 根据名称从当前的 IoC容器 中通过 getBean() 获 取HandlerMapping
 				HandlerMapping hm = context.getBean(HANDLER_MAPPING_BEAN_NAME, HandlerMapping.class);
 				this.handlerMappings = Collections.singletonList(hm);
 			}
 			catch (NoSuchBeanDefinitionException ex) {
 				// Ignore, we'll add a default HandlerMapping later.
+				// 忽略，稍后将添加默认的 HandlerMapping
 			}
 		}
 
 		// Ensure we have at least one HandlerMapping, by registering
 		// a default HandlerMapping if no other mappings are found.
+		// 如果找不到其他映射，请通过注册默认的 HandlerMapping 确保至少有一个 HandlerMapping
 		if (this.handlerMappings == null) {
 			this.handlerMappings = getDefaultStrategies(context, HandlerMapping.class);
 			if (logger.isTraceEnabled()) {
@@ -626,6 +650,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 	/**
 	 * Initialize the HandlerAdapters used by this class.
+	 * 初始化该类使用的HandlerAdapters,默认使用SimpleControllerHandlerAdapter。
 	 * <p>If no HandlerAdapter beans are defined in the BeanFactory for this namespace,
 	 * we default to SimpleControllerHandlerAdapter.
 	 */
@@ -634,11 +659,13 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		if (this.detectAllHandlerAdapters) {
 			// Find all HandlerAdapters in the ApplicationContext, including ancestor contexts.
+			// 查找所有的 HandlerAdapter，从 应用上下文context 及其双亲上下文中获取
 			Map<String, HandlerAdapter> matchingBeans =
 					BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerAdapter.class, true, false);
 			if (!matchingBeans.isEmpty()) {
 				this.handlerAdapters = new ArrayList<>(matchingBeans.values());
 				// We keep HandlerAdapters in sorted order.
+				// 保持 HandlerAdapters 的有序性
 				AnnotationAwareOrderComparator.sort(this.handlerAdapters);
 			}
 		}
@@ -665,6 +692,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 	/**
 	 * Initialize the HandlerExceptionResolver used by this class.
+	 * 初始化该类使用的HandlerExceptionResolver
 	 * <p>If no bean is defined with the given name in the BeanFactory for this namespace,
 	 * we default to no exception resolver.
 	 */

@@ -27,8 +27,11 @@ import org.springframework.web.servlet.ModelAndView;
  * Adapter to use the plain {@link Controller} workflow interface with
  * the generic {@link org.springframework.web.servlet.DispatcherServlet}.
  * Supports handlers that implement the {@link LastModified} interface.
+ * 要使用普通{@link Controller}工作流接口的适配器
+ * 支持实现{@link LastModified}接口的处理程序
  *
  * <p>This is an SPI class, not used directly by application code.
+ * 这是一个SPI类，不直接由应用程序代码使用
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

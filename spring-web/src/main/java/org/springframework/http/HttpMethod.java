@@ -25,6 +25,9 @@ import org.springframework.lang.Nullable;
  * Java 5 enumeration of HTTP request methods. Intended for use
  * with {@link org.springframework.http.client.ClientHttpRequest}
  * and {@link org.springframework.web.client.RestTemplate}.
+ * Java 5的HTTP请求方法枚举。拟使用
+ * *使用{@link org.springframework.http.client.ClientHttpRequest}
+ * *和{@link org.springframework.web.client.RestTemplate}。
  *
  * @author Arjen Poutsma
  * @author Juergen Hoeller

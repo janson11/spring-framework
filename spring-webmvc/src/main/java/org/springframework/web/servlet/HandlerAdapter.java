@@ -65,6 +65,8 @@ public interface HandlerAdapter {
 	/**
 	 * Use the given handler to handle this request.
 	 * The workflow that is required may vary widely.
+	 * 使用给定的处理程序来处理此请求。
+	 * 所需的工作流程可能差别很大。
 	 * @param request current HTTP request
 	 * @param response current HTTP response
 	 * @param handler the handler to use. This object must have previously been passed

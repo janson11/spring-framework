@@ -29,6 +29,7 @@ import org.springframework.web.util.WebUtils;
 /**
  * Convenient superclass for controller implementations, using the Template Method
  * design pattern.
+ * 方便的父类控制器实现，使用模板方法设计模式
  *
  * <p><b>Workflow
  * (<a href="Controller.html#workflow">and that defined by interface</a>):</b><br>
@@ -160,10 +161,12 @@ public abstract class AbstractController extends WebContentGenerator implements 
 		}
 
 		// Delegate to WebContentGenerator for checking and preparing.
+		// 委托WebContentGenerator进行检查和准备
 		checkRequest(request);
 		prepareResponse(response);
 
 		// Execute handleRequestInternal in synchronized block if required.
+		// 如果需要，在同步块中执行handleRequestInternal
 		if (this.synchronizeOnSession) {
 			HttpSession session = request.getSession(false);
 			if (session != null) {

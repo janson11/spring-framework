@@ -95,6 +95,7 @@ public abstract class AbstractUrlViewController extends AbstractController {
 
 	/**
 	 * Retrieves the URL path to use for lookup and delegates to
+	 * 取回用于查找的URL路径并将其委托给getViewNameForRequest
 	 * {@link #getViewNameForRequest}. Also adds the content of
 	 * {@link RequestContextUtils#getInputFlashMap} to the model.
 	 */
@@ -110,6 +111,7 @@ public abstract class AbstractUrlViewController extends AbstractController {
 	/**
 	 * Return the name of the view to render for this request, based on the
 	 * given lookup path. Called by {@link #handleRequestInternal}.
+	 * 返回要为此请求呈现的视图的名称，基于给定的查找路径。
 	 * @param request current HTTP request
 	 * @return a view name for this request (never {@code null})
 	 * @see #handleRequestInternal

@@ -51,6 +51,8 @@ import org.springframework.web.context.request.WebRequest;
  * Convenience methods for retrieving the root {@link WebApplicationContext} for
  * a given {@link ServletContext}. This is useful for programmatically accessing
  * a Spring application context from within custom web views or MVC actions.
+ *  这是一个封装了很多静态方法的抽象工具类，所以只能调用其静态方法，
+ *  不能对其进行实例化
  *
  * <p>Note that there are more convenient ways of accessing the root context for
  * many web frameworks, either part of Spring or available as an external library.
@@ -92,6 +94,8 @@ public abstract class WebApplicationContextUtils {
 	 * loaded via {@link org.springframework.web.context.ContextLoaderListener}.
 	 * <p>Will rethrow an exception that happened on root context startup,
 	 * to differentiate between a failed context startup and no context at all.
+	 * 使用了 WebApplicationContext 的 ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE属性，获取
+	 * ServletContext 中的根上下文，这个属性代表的根上下文在 ContextLoaderListener 初始化的过程中被建立
 	 * @param sc the ServletContext to find the web application context for
 	 * @return the root WebApplicationContext for this web app, or {@code null} if none
 	 * @see org.springframework.web.context.WebApplicationContext#ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE
@@ -102,6 +106,7 @@ public abstract class WebApplicationContextUtils {
 	}
 
 	/**
+	 * 查找此 web应用程序 的自定义 WebApplicationContext
 	 * Find a custom {@code WebApplicationContext} for this web app.
 	 * @param sc the ServletContext to find the web application context for
 	 * @param attrName the name of the ServletContext attribute to look for

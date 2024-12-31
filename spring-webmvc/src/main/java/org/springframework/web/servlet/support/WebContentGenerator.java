@@ -370,18 +370,21 @@ public abstract class WebContentGenerator extends WebApplicationObjectSupport {
 
 	/**
 	 * Check the given request for supported methods and a required session, if any.
+	 * 检查请求是否支持所需的方法和任何所需的会话。
 	 * @param request current HTTP request
 	 * @throws ServletException if the request cannot be handled because a check failed
 	 * @since 4.2
 	 */
 	protected final void checkRequest(HttpServletRequest request) throws ServletException {
 		// Check whether we should support the request method.
+		// 检查是否应该支持请求方法。
 		String method = request.getMethod();
 		if (this.supportedMethods != null && !this.supportedMethods.contains(method)) {
 			throw new HttpRequestMethodNotSupportedException(method, this.supportedMethods);
 		}
 
 		// Check whether a session is required.
+		// 检查是否需要会话。
 		if (this.requireSession && request.getSession(false) == null) {
 			throw new HttpSessionRequiredException("Pre-existing session required but none found");
 		}
@@ -390,6 +393,8 @@ public abstract class WebContentGenerator extends WebApplicationObjectSupport {
 	/**
 	 * Prepare the given response according to the settings of this generator.
 	 * Applies the number of cache seconds specified for this generator.
+	 * 准备给定的响应，根据此生成器的设置。
+	 * 应用指定的缓存秒数。
 	 * @param response current HTTP response
 	 * @since 4.2
 	 */
@@ -409,6 +414,7 @@ public abstract class WebContentGenerator extends WebApplicationObjectSupport {
 
 	/**
 	 * Set the HTTP Cache-Control header according to the given settings.
+	 * 设置HTTP Cache-Control标头，根据给定的设置。
 	 * @param response current HTTP response
 	 * @param cacheControl the pre-configured cache control settings
 	 * @since 4.2
@@ -417,6 +423,7 @@ public abstract class WebContentGenerator extends WebApplicationObjectSupport {
 		String ccValue = cacheControl.getHeaderValue();
 		if (ccValue != null) {
 			// Set computed HTTP 1.1 Cache-Control header
+			// 设置计算的HTTP 1.1 Cache-Control标头
 			response.setHeader(HEADER_CACHE_CONTROL, ccValue);
 
 			if (response.containsHeader(HEADER_PRAGMA)) {
@@ -443,6 +450,7 @@ public abstract class WebContentGenerator extends WebApplicationObjectSupport {
 	protected final void applyCacheSeconds(HttpServletResponse response, int cacheSeconds) {
 		if (this.useExpiresHeader || !this.useCacheControlHeader) {
 			// Deprecated HTTP 1.0 cache behavior, as in previous Spring versions
+			// 与以前的Spring版本一样，已弃用HTTP 1.0缓存行为
 			if (cacheSeconds > 0) {
 				cacheForSeconds(response, cacheSeconds);
 			}
@@ -541,6 +549,7 @@ public abstract class WebContentGenerator extends WebApplicationObjectSupport {
 	/**
 	 * Set HTTP headers to allow caching for the given number of seconds.
 	 * Tells the browser to revalidate the resource if mustRevalidate is
+	 * 设置为HTTP标头，以允许缓存给定的秒数。
 	 * {@code true}.
 	 * @param response the current HTTP response
 	 * @param seconds number of seconds into the future that the response
@@ -553,6 +562,7 @@ public abstract class WebContentGenerator extends WebApplicationObjectSupport {
 	protected final void cacheForSeconds(HttpServletResponse response, int seconds, boolean mustRevalidate) {
 		if (this.useExpiresHeader) {
 			// HTTP 1.0 header
+			// 设置HTTP 1.0 Expires标头
 			response.setDateHeader(HEADER_EXPIRES, System.currentTimeMillis() + seconds * 1000L);
 		}
 		else if (response.containsHeader(HEADER_EXPIRES)) {

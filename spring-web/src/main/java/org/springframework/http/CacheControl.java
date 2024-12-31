@@ -24,10 +24,14 @@ import org.springframework.util.StringUtils;
 
 /**
  * A builder for creating "Cache-Control" HTTP response headers.
+ * 创建“Cache-Control”HTTP响应头的构建器。
  *
  * <p>Adding Cache-Control directives to HTTP responses can significantly improve the client
  * experience when interacting with a web application. This builder creates opinionated
  * "Cache-Control" headers with response directives only, with several use cases in mind.
+ * 向HTTP响应添加Cache-Control指令可以显著改善客户端
+ * 与web应用程序交互时的经验。这个建设者创造了固执己见
+ * “Cache-Control”头只带响应指令，有几个用例。
  *
  * <ul>
  * <li>Caching HTTP responses with {@code CacheControl cc = CacheControl.maxAge(1, TimeUnit.HOURS)}
