@@ -45,6 +45,8 @@ import org.springframework.lang.Nullable;
 public interface WebApplicationContext extends ApplicationContext {
 
 	/**
+	 * 该常量用于在 ServletContext 中存取根上下文
+	 * 在成功启动时绑定根WebApplicationContext属性
 	 * Context attribute to bind root WebApplicationContext to on successful startup.
 	 * <p>Note: If the startup of the root context fails, this attribute can contain
 	 * an exception or error as value. Use WebApplicationContextUtils for convenient
@@ -56,24 +58,31 @@ public interface WebApplicationContext extends ApplicationContext {
 
 	/**
 	 * Scope identifier for request scope: "request".
+	 * 范围标识符：“请求”。
 	 * Supported in addition to the standard scopes "singleton" and "prototype".
+	 * 支持标准范围“单例”和“原型”的附加范围。
 	 */
 	String SCOPE_REQUEST = "request";
 
 	/**
 	 * Scope identifier for session scope: "session".
+	 * 范围标识符：“会话”。
 	 * Supported in addition to the standard scopes "singleton" and "prototype".
+	 * 支持标准范围“单例”和“原型”的附加范围。
 	 */
 	String SCOPE_SESSION = "session";
 
 	/**
 	 * Scope identifier for the global web application scope: "application".
+	 * 范围标识符：“全局Web应用程序”。
 	 * Supported in addition to the standard scopes "singleton" and "prototype".
+	 * 支持标准范围“单例”和“原型”的附加范围。
 	 */
 	String SCOPE_APPLICATION = "application";
 
 	/**
 	 * Name of the ServletContext environment bean in the factory.
+	 * ServletContext环境bean的名称。
 	 * @see javax.servlet.ServletContext
 	 */
 	String SERVLET_CONTEXT_BEAN_NAME = "servletContext";
@@ -99,6 +108,8 @@ public interface WebApplicationContext extends ApplicationContext {
 
 	/**
 	 * Return the standard Servlet API ServletContext for this application.
+	 * 返回此应用程序的标准Servlet API ServletContext。
+	 * 对于 WebApplicationContext 来说，需要得到 Web容器 的 ServletContext
 	 */
 	@Nullable
 	ServletContext getServletContext();
