@@ -62,20 +62,25 @@ public class DefaultCorsProcessor implements CorsProcessor {
 			HttpServletResponse response) throws IOException {
 
 		Collection<String> varyHeaders = response.getHeaders(HttpHeaders.VARY);
+		// 判断是否有 Origin
 		if (!varyHeaders.contains(HttpHeaders.ORIGIN)) {
 			response.addHeader(HttpHeaders.VARY, HttpHeaders.ORIGIN);
 		}
+		// 判断是否有 Access-Control-Request-Method
 		if (!varyHeaders.contains(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD)) {
 			response.addHeader(HttpHeaders.VARY, HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD);
 		}
+		// 判断是否有 Access-Control-Request-Headers
 		if (!varyHeaders.contains(HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS)) {
 			response.addHeader(HttpHeaders.VARY, HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS);
 		}
 
+		// 判断是否跨域请求
 		if (!CorsUtils.isCorsRequest(request)) {
 			return true;
 		}
 
+		// 判断是否有 Access-Control-Allow-Origin
 		if (response.getHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN) != null) {
 			logger.trace("Skip: response already contains \"Access-Control-Allow-Origin\"");
 			return true;
@@ -97,8 +102,10 @@ public class DefaultCorsProcessor implements CorsProcessor {
 
 	/**
 	 * Invoked when one of the CORS checks failed.
+	 * 当CORS检查失败时调用。
 	 * The default implementation sets the response status to 403 and writes
 	 * "Invalid CORS request" to the response.
+	 * 默认实现将响应状态设置为403，并将“无效的CORS请求”写入响应。
 	 */
 	protected void rejectRequest(ServerHttpResponse response) throws IOException {
 		response.setStatusCode(HttpStatus.FORBIDDEN);
@@ -108,6 +115,7 @@ public class DefaultCorsProcessor implements CorsProcessor {
 
 	/**
 	 * Handle the given request.
+	 * 处理给定的请求。
 	 */
 	protected boolean handleInternal(ServerHttpRequest request, ServerHttpResponse response,
 			CorsConfiguration config, boolean preFlightRequest) throws IOException {

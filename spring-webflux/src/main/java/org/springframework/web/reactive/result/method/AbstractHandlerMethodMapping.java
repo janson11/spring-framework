@@ -233,6 +233,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	/**
 	 * Register a handler method and its unique mapping. Invoked at startup for
 	 * each detected handler method.
+	 * 注册处理程序方法并其唯一映射。 在初始化期间，为每个检测到的处理程序方法调用此方法。
 	 * @param handler the bean name of the handler or the handler instance
 	 * @param method the method to register
 	 * @param mapping the mapping conditions associated with the handler method
@@ -259,6 +260,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 	/**
 	 * Extract and return the CORS configuration for the mapping.
+	 * 提取并返回映射的CORS配置。
 	 */
 	@Nullable
 	protected CorsConfiguration initCorsConfiguration(Object handler, Method method, T mapping) {
@@ -434,17 +436,22 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	/**
 	 * A registry that maintains all mappings to handler methods, exposing methods
 	 * to perform lookups and providing concurrent access.
+	 * 一个注册表，用于维护所有映射到处理程序方法，提供查找方法并提供并发访问。
 	 *
 	 * <p>Package-private for testing purposes.
 	 */
 	class MappingRegistry {
 
+		// 注册映射关系 T: 请求地址  MappingRegistration  T mapping ——> HandlerMethod: 处理器对象
 		private final Map<T, MappingRegistration<T>> registry = new HashMap<>();
 
+		// 存储url映射关系
 		private final Map<T, HandlerMethod> mappingLookup = new LinkedHashMap<>();
 
+		// 存储cors映射关系
 		private final Map<HandlerMethod, CorsConfiguration> corsLookup = new ConcurrentHashMap<>();
 
+		// 读写锁
 		private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
 		/**
@@ -478,21 +485,33 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			this.readWriteLock.readLock().unlock();
 		}
 
+		/**
+		 * 注册方法 将controller 相关信息存储	到注册表中
+		 * @param mapping 请求地址
+		 * @param handler 处理器对象
+		 * @param method 处理器方法
+		 */
 		public void register(T mapping, Object handler, Method method) {
+			// 上写锁
 			this.readWriteLock.writeLock().lock();
 			try {
+				// 创建 HandlerMethod , 通过 handler 创建处理的对象(controller)
 				HandlerMethod handlerMethod = createHandlerMethod(handler, method);
 				validateMethodMapping(handlerMethod, mapping);
+				// 存储url映射关系
 				this.mappingLookup.put(mapping, handlerMethod);
 
 				CorsConfiguration corsConfig = initCorsConfiguration(handler, method, mapping);
 				if (corsConfig != null) {
+					// 存储url映射关系
 					this.corsLookup.put(handlerMethod, corsConfig);
 				}
 
+				// 注册映射关系
 				this.registry.put(mapping, new MappingRegistration<>(mapping, handlerMethod));
 			}
 			finally {
+				// 释放写锁
 				this.readWriteLock.writeLock().unlock();
 			}
 		}

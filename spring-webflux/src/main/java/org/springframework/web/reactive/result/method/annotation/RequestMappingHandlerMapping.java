@@ -288,8 +288,11 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 
 	@Override
 	protected CorsConfiguration initCorsConfiguration(Object handler, Method method, RequestMappingInfo mappingInfo) {
+		// 重新创建,为什么不作为参数传递: 还有别的实现方法
 		HandlerMethod handlerMethod = createHandlerMethod(handler, method);
+		// 获取bean类型
 		Class<?> beanType = handlerMethod.getBeanType();
+		// 获取注解信息
 		CrossOrigin typeAnnotation = AnnotatedElementUtils.findMergedAnnotation(beanType, CrossOrigin.class);
 		CrossOrigin methodAnnotation = AnnotatedElementUtils.findMergedAnnotation(method, CrossOrigin.class);
 
@@ -298,6 +301,7 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 		}
 
 		CorsConfiguration config = new CorsConfiguration();
+		// 更新跨域信息
 		updateCorsConfig(config, typeAnnotation);
 		updateCorsConfig(config, methodAnnotation);
 
@@ -306,6 +310,7 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 				config.addAllowedMethod(allowedMethod.name());
 			}
 		}
+		// 返回跨域配置默认值
 		return config.applyPermitDefaultValues();
 	}
 

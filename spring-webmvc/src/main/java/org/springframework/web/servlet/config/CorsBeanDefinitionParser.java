@@ -50,12 +50,17 @@ public class CorsBeanDefinitionParser implements BeanDefinitionParser {
 		List<Element> mappings = DomUtils.getChildElementsByTagName(element, "mapping");
 
 		if (mappings.isEmpty()) {
+			// 最简配置
 			CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
 			corsConfigurations.put("/**", config);
 		}
 		else {
+			// 单个 mapping 处理
+			// mvc:mapping 标签
 			for (Element mapping : mappings) {
+				// 跨域配置
 				CorsConfiguration config = new CorsConfiguration();
+				// 处理每个属性值,并且赋值
 				if (mapping.hasAttribute("allowed-origins")) {
 					String[] allowedOrigins = StringUtils.tokenizeToStringArray(mapping.getAttribute("allowed-origins"), ",");
 					config.setAllowedOrigins(Arrays.asList(allowedOrigins));
@@ -82,6 +87,7 @@ public class CorsBeanDefinitionParser implements BeanDefinitionParser {
 			}
 		}
 
+		// 注册到 Spring
 		MvcNamespaceUtils.registerCorsConfigurations(
 				corsConfigurations, parserContext, parserContext.extractSource(element));
 		return null;

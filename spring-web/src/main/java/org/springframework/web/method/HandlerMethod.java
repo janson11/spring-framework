@@ -47,6 +47,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * {@linkplain #getMethod() method} and a {@linkplain #getBean() bean}.
  * Provides convenient access to method parameters, the method return value,
  * method annotations, etc.
+ * 概况：HandlerMethod类封装了处理方法的信息，包括方法和bean。提供了便捷的方法参数、方法返回值、方法注解等信息的访问。
+ *
  *
  * <p>The class may be created with a bean instance or with a bean name
  * (e.g. lazy-init bean, prototype bean). Use {@link #createWithResolvedBean()}
@@ -94,6 +96,7 @@ public class HandlerMethod {
 
 	/**
 	 * Create an instance from a bean instance and a method.
+	 * 创建HandlerMethod实例，bean为bean实例，method为bean的方法
 	 */
 	public HandlerMethod(Object bean, Method method) {
 		Assert.notNull(bean, "Bean is required");
@@ -129,6 +132,7 @@ public class HandlerMethod {
 	 * Create an instance from a bean name, a method, and a {@code BeanFactory}.
 	 * The method {@link #createWithResolvedBean()} may be used later to
 	 * re-create the {@code HandlerMethod} with an initialized bean.
+	 * 创建HandlerMethod实例，beanName为bean的名称，method为bean的方法，BeanFactory为bean工厂
 	 */
 	public HandlerMethod(String beanName, BeanFactory beanFactory, Method method) {
 		Assert.hasText(beanName, "Bean name is required");

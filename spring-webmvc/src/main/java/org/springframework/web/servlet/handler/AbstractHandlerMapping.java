@@ -386,15 +386,18 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	/**
 	 * Look up a handler for the given request, falling back to the default
 	 * handler if no specific one is found.
-	 * @param request current HTTP request
-	 * @return the corresponding handler instance, or the default handler
+	 * 寻找给定的请求的处理程序，如果找不到特定的处理程序，则回退到默认处理程序。
+	 * @param request current HTTP request 当前HTTP请求
+	 * @return the corresponding handler instance, or the default handler 返回相关的处理程序实例或默认处理程序
 	 * @see #getHandlerInternal
 	 */
 	@Override
 	@Nullable
 	public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
+		// 转换成handler
 		Object handler = getHandlerInternal(request);
 		if (handler == null) {
+			// 获取默认的 handler
 			handler = getDefaultHandler();
 		}
 		if (handler == null) {
@@ -402,6 +405,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 		}
 		// Bean name or resolved handler?
 		if (handler instanceof String) {
+			// handler 是beanName 直接从容器中获取bean
 			String handlerName = (String) handler;
 			handler = obtainApplicationContext().getBean(handlerName);
 		}
@@ -415,7 +419,9 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 			logger.debug("Mapped to " + executionChain.getHandler());
 		}
 
+		// 判断是否为跨域请求
 		if (hasCorsConfigurationSource(handler) || CorsUtils.isPreFlightRequest(request)) {
+			// 当前请求的跨域配置
 			CorsConfiguration config = (this.corsConfigurationSource != null ? this.corsConfigurationSource.getCorsConfiguration(request) : null);
 			CorsConfiguration handlerConfig = getCorsConfiguration(handler, request);
 			config = (config != null ? config.combine(handlerConfig) : handlerConfig);
@@ -485,6 +491,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 
 	/**
 	 * Return {@code true} if there is a {@link CorsConfigurationSource} for this handler.
+	 * 返回{@code true}如果存在此处理程序的{@link CorsConfigurationSource}。
 	 * @since 5.2
 	 */
 	protected boolean hasCorsConfigurationSource(Object handler) {
@@ -533,6 +540,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 			return new HandlerExecutionChain(new PreFlightHandler(config), interceptors);
 		}
 		else {
+			// 创建跨域拦截器
 			chain.addInterceptor(0, new CorsInterceptor(config));
 			return chain;
 		}
@@ -561,6 +569,9 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	}
 
 
+	/**
+	 * 跨域拦截器
+	 */
 	private class CorsInterceptor extends HandlerInterceptorAdapter implements CorsConfigurationSource {
 
 		@Nullable
@@ -575,6 +586,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 				throws Exception {
 
 			// Consistent with CorsFilter, ignore ASYNC dispatches
+			// 与CorsFilter一致，忽略异步调度
 			WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
 			if (asyncManager.hasConcurrentResult()) {
 				return true;

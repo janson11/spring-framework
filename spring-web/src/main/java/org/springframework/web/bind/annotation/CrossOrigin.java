@@ -29,6 +29,7 @@ import org.springframework.web.cors.CorsConfiguration;
  * Annotation for permitting cross-origin requests on specific handler classes
  * and/or handler methods. Processed if an appropriate {@code HandlerMapping}
  * is configured.
+ * 注解用于允许跨域请求的特定处理程序类和/或处理程序方法。如果配置了适当的{@code HandlerMapping}，则会处理该注解。
  *
  * <p>Both Spring Web MVC and Spring WebFlux support this annotation through the
  * {@code RequestMappingHandlerMapping} in their respective modules. The values
