@@ -553,6 +553,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	/**
 	 * A registry that maintains all mappings to handler methods, exposing methods
 	 * to perform lookups and providing concurrent access.
+	 * 一个注册表，用于维护所有映射到处理程序方法，提供查找方法并提供并发访问。
 	 * <p>Package-private for testing purposes.
 	 */
 	class MappingRegistry {
@@ -565,8 +566,15 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 		private final Map<String, List<HandlerMethod>> nameLookup = new ConcurrentHashMap<>();
 
+		/**
+		 * key:handler method
+		 * value: 跨域配置
+		 */
 		private final Map<HandlerMethod, CorsConfiguration> corsLookup = new ConcurrentHashMap<>();
 
+		/**
+		 * 读写锁
+		 */
 		private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
 		/**
@@ -638,7 +646,10 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 				String name = null;
 				if (getNamingStrategy() != null) {
+					// 获取名字
+					// 类名#方法名
 					name = getNamingStrategy().getName(handlerMethod, mapping);
+					// 设置 handlerMethod + name 的关系
 					addMappingName(name, handlerMethod);
 				}
 
@@ -668,6 +679,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		private List<String> getDirectUrls(T mapping) {
 			List<String> urls = new ArrayList<>(1);
 			for (String path : getMappingPathPatterns(mapping)) {
+				// 是否匹配
 				if (!getPathMatcher().isPattern(path)) {
 					urls.add(path);
 				}

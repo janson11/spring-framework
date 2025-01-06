@@ -251,7 +251,9 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 * @return the created HandlerMethod
 	 */
 	protected HandlerMethod createHandlerMethod(Object handler, Method method) {
+		// 是否是字符串
 		if (handler instanceof String) {
+			// 创建对象
 			return new HandlerMethod((String) handler,
 					obtainApplicationContext().getAutowireCapableBeanFactory(), method);
 		}
@@ -518,7 +520,9 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 		private void validateMethodMapping(HandlerMethod handlerMethod, T mapping) {
 			// Assert that the supplied mapping is unique.
+			// 从缓存中获取映射关系
 			HandlerMethod existingHandlerMethod = this.mappingLookup.get(mapping);
+			// 是否为空 , 是否相同
 			if (existingHandlerMethod != null && !existingHandlerMethod.equals(handlerMethod)) {
 				throw new IllegalStateException(
 						"Ambiguous mapping. Cannot map '" + handlerMethod.getBean() + "' method \n" +
